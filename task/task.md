@@ -4,7 +4,7 @@
 
 Он искал примеры резюме и нашел нечто подобное:
 
-<img src="https://github.com/Central-University-IT/test-frontend/blob/main/task/resume.png" width="600" alt="Пример резюме">
+<img src="https://github.com/Central-University-IT/frontend-images/blob/main/resume.png" width="600" alt="Пример резюме">
 
 Однако существующие сайты либо платные, либо не позволяют создать такой дизайн, какой хочет Вася.
 
