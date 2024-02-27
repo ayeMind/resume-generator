@@ -62,6 +62,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 29px;
 }
 
 .image {
@@ -71,19 +72,13 @@ p {
 }
 
 .personal {
-  padding-top: 14.9px;
+  padding-top: 15px;
   padding-bottom: 12px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 13px;
 }
 
-.personal-block {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-
-}
 
 .personal-info {
   display: flex;
@@ -91,14 +86,19 @@ p {
   gap: 12px;
 }
 
-.personal-info-element {
+.personal-info-item {
   display: flex;
   flex-direction: column;
-  gap: 0.92px;
+  gap: 4px;
+}
+
+.lang-container {
+  margin-top: 12px;
 }
 
 .lang {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
@@ -106,6 +106,6 @@ p {
 .side-hr {
   border: none;
 	border-top: 1px solid #ffffff;
-  margin-top: 15.1px;
-  margin-bottom: 20px;
+  margin-top: 16.5px;
+  margin-bottom: 22px;
 }
