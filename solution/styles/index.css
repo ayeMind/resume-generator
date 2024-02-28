@@ -39,11 +39,16 @@ h4 {
 p {
   font-size: 12.5px;
   font-weight: normal;
+  line-height: 1.1
+}
 
+p.long {
+  line-height: 1.25;
+  margin-right: 11px;
 }
 
 .container {
-  height: 853.88px;
+  height: auto;
   width: 900px;
   background-color: #f8f8f8;
   position: relative;
@@ -60,7 +65,8 @@ p {
   width: 256px;
   background-color: #6495ED;
   color: #FFFFFF;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
   padding: 16px;
 }
 
@@ -69,7 +75,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 29px;
+  margin-bottom: 31px;
 }
 
 .image {
@@ -83,7 +89,7 @@ p {
   padding-bottom: 12px;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 15px;
 }
 
 
@@ -93,10 +99,17 @@ p {
   gap: 12px;
 }
 
+.personal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+}
+
 .personal-info-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2.6px;
 }
 
 .lang-container {
@@ -119,7 +132,7 @@ p {
 .side-hr {
   border: none;
 	border-top: 1px solid #ffffff;
-  margin-top: 6px;
+  margin-top: 4px;
   margin-bottom: 8px;
 }
 
@@ -132,7 +145,11 @@ p {
   box-sizing: border-box;
   width: calc(100% - 256px);
   padding-left: 16px;
+  padding-right: 16px;
   color: #000000;
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 16px;
 }
 
 .title {
@@ -141,28 +158,55 @@ p {
 
 .main-hr {
   border: none;
-  border-top: 1px solid #000000;
+  border-top: 1px solid #D3D3D3;
   margin-top: 29px;
   margin-bottom: 14px;
 }
 
 .main-info {
   margin-top: 29px;
-  height: auto;
+}
+
+.main-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.main-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  margin-right: 11px;
+}
+
+.no-description {
+  gap: 15px;
 }
 
 .main-info-item {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   item-align: center;
+  gap: 15px;
 }
+
+.main-info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.main-info-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 
 .main-info-hr {
   border: none;
-  border-top: 1px solid #000000;
+  border-top: 1px solid #D3D3D3;
   margin-top: 16px;
-}
-
-.date {
-  margin: auto 0;
+  margin-bottom: 20px;
 }
