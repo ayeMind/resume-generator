@@ -312,4 +312,6 @@ const imageAlt = 'Фото';
 const titleText = 'Данилов Дмитрий Евгеньевич';
 const descriptionText = 'В целом достаточно сильный разработчик, я бы даже сказал умный, вообще умен не по годам. Подниму ваш проект, удалю все легаси, и все коммиты будут маленькими по 15 строк кода.';
 
-document.body.appendChild(createResumePageComponent(imageSrc, imageAlt, titleText, descriptionText, personalInfoItems, interests, languages, job, education, courses));
+
+// document.body.appendChild(createResumePageComponent(imageSrc, imageAlt, titleText, descriptionText, personalInfoItems, interests, languages, job, education, courses));
+
