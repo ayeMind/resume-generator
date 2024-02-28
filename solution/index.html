@@ -5,171 +5,186 @@
   <title>Конструктор резюме</title>
   <link rel="stylesheet" href="styles/resume.css" />
   <link rel="stylesheet" href="styles/form.css" />
-  <script src="scripts/resume.js" defer></script>
-  <script src="scripts/form.js" defer></script>
 </head>
 <body>
   <h1 class="form-h">Создание резюме</h1>
-  <form class="create-form">
+  <form class="create-form" test-id="resume-builder">
+    
+    <label>
+      <span>Название резюме</span>
+      <input type="text" name="title" test-id="resume-title-field"  />
+    </label>
 
     <h2 class="form-h">Личные данные</h2>
     <label>
       <span>ФИО</span>
-      <input type="text" name="name" required />
+      <input type="text" name="name" required test-id="personal-info" />
     </label>
 
     <label>
       <span>Дата рождения</span>
-      <input type="date" name="birth"  />
+      <input type="date" name="birth" test-id="personal-info" />
     </label>
 
     <label>
       <span>Номер телефона</span>
-      <input type="tel" name="phone"  />
+      <input type="tel" name="phone" test-id="personal-info" />
     </label>
 
     <label>
       <span>Email</span>
-      <input type="email" name="email"  />
+      <input type="email" name="email" test-id="personal-info" />
     </label>
 
     <h2 class="form-h">Интересы</h2>
-    <label>
-      <span>1 интерес</span>
-      <input type="text"  />
-    </label>
-
-    <div class="btn-container">
-      <button type="button" class="add">Добавить</button>
-      <button type="button" class="delete">Удалить</button>
+    <div class="interest-container">
+      <label>
+        <span>1 интерес</span>
+        <input type="text" test-id="interest" />
+      </label>
     </div>
 
-    <h2 class="form-h">Языки</h2>
-    <label>
-      <span>Язык</span>
-      <input type="text"  />
-    </label>
-
-    <label>
-      <span>Уровень</span>
-      <input type="text"  />
-    </label>
-
     <div class="btn-container">
-      <button type="button" class="add">Добавить</button>
-      <button type="button" class="delete">Удалить</button>
+      <button type="button" class="add" test-id="add-interest">Добавить</button>
+      <button type="button" class="delete" test-id="remove-interest">Удалить</button>
+    </div>
+
+  
+    <h2 class="form-h">Языки</h2>
+    <div class="language-container">
+      <div class="language">
+        <label>
+          <span>Язык</span>
+          <input type="text" test-id="language-name" />
+        </label>
+  
+        <label>
+          <span>Уровень</span>
+          <input type="text" test-id="language-level" />
+        </label>
+      </div>
+    </div>
+    
+    <div class="btn-container">
+      <button type="button" class="add" test-id="add-language">Добавить</button>
+      <button type="button" class="delete" test-id="remove-language">Удалить</button>
     </div> 
     
     <h2 class="form-h">Основная информация</h2>
     <label>
       <span>О себе</span>
-      <textarea class="description"></textarea>
+      <textarea class="description" test-id="personal-description"></textarea>
     </label>
 
     <h3 class="sub-h">Опыт работы</h3>
 
-    <div class="sub-form">
-      <h4 class="sub-h">1 работа</h4>
-      <label>
-        <span>Место работы</span>
-        <input type="text"  />
-      </label>
-
-      <label>
-        <span>Должность</span>
-        <input type="text"  />
-      </label>
-
-      <label>
-        <span>Начало</span>
-        <input type="date"  />
-      </label>
-
-      <label>
-        <span>Конец</span>
-        <input type="date"  />
-      </label>
-
-      <label>
-        <span>Описание</span>
-        <textarea class="description"></textarea>
-      </label>
-
+    <div class="sub-form work-container">
+      <div class="work">
+        <label>
+          <span>Место работы</span>
+          <input type="text" test-id="job-place" />
+        </label>
+  
+        <label>
+          <span>Должность</span>
+          <input type="text" test-id="job-title" />
+        </label>
+  
+        <label>
+          <span>Начало</span>
+          <input type="date" test-id="job-date-start" />
+        </label>
+  
+        <label>
+          <span>Конец</span>
+          <input type="date" test-id="job-date-end" />
+        </label>
+  
+        <label>
+          <span>Описание</span>
+          <textarea class="description" test-id="job-description"></textarea>
+        </label>
+      </div>
+      
     </div>
 
     <div class="btn-container">
-      <button type="button" class="add">Добавить</button>
-      <button type="button" class="delete">Удалить</button>
+      <button type="button" class="add" test-id="add-job">Добавить</button>
+      <button type="button" class="delete" test-id="remove-job">Удалить</button>
     </div>
 
     <h3 class="sub-h">Образование и квалификация</h3>
 
-    <div class="sub-form">
-      <h4 class="sub-h">1 образование</h4>
-      <label>
-        <span>Высшее образование</span>
-        <input type="text"  />
-      </label>
-
-      <label>
-        <span>Место обучения</span>
-        <input type="text"  />
-      </label>
-
-      <label>
-        <span>Начало</span>
-        <input type="date"  />
-      </label>
-
-      <label>
-        <span>Конец</span>
-        <input type="date"  />
-      </label>
-
-      <label>
-        <span>Описание</span>
-        <textarea class="description"></textarea>
-      </label>
-
+    <div class="sub-form education-container">
+      <div class="education">
+        <label>
+          <span>Высшее образование</span>
+          <input type="text" test-id="education-title" />
+        </label>
+  
+        <label>
+          <span>Место обучения</span>
+          <input type="text" test-id="education-place" />
+        </label>
+  
+        <label>
+          <span>Начало</span>
+          <input type="date" test-id="education-date-start" />
+        </label>
+  
+        <label>
+          <span>Конец</span>
+          <input type="date" test-id="education-date-end" />
+        </label>
+  
+        <label>
+          <span>Описание</span>
+          <textarea class="description" test-id="education-description"></textarea>
+        </label>
+      </div>
     </div> 
 
     <div class="btn-container">
-      <button type="button" class="add">Добавить</button>
-      <button type="button" class="delete">Удалить</button>
+      <button type="button" class="add" test-id="add-education">Добавить</button>
+      <button type="button" class="delete" test-id="remove-education">Удалить</button>
     </div>
 
     <h3 class="sub-h">Курсы</h3>
 
-    <div class="sub-form">
-      <h4 class="sub-h">1 курс</h4>
-      <label>
-        <span>Название</span>
-        <input type="text"  />
-      </label>
-
-      <label>
-        <span>Организация</span>
-        <input type="text"  />
-      </label>
-
-      <label>
-        <span>Начало</span>
-        <input type="date"  />
-      </label>
-
-      <label>
-        <span>Конец</span>
-        <input type="date"  />
-      </label>
-
+    <div class="sub-form course-container">
+      <div class="course">
+        <label>
+          <span>Название</span>
+          <input type="text" test-id="course-title" />
+        </label>
+  
+        <label>
+          <span>Организация</span>
+          <input type="text" test-id="course-place" />
+        </label>
+  
+        <label>
+          <span>Начало</span>
+          <input type="date" test-id="course-date-start" />
+        </label>
+  
+        <label>
+          <span>Конец</span>
+          <input type="date" test-id="course-date-end" />
+        </label>
+      </div>
     </div>
 
     <div class="btn-container">
-      <button type="button" class="add">Добавить</button>
-      <button type="button" class="delete">Удалить</button>
+      <button type="button" class="add" test-id="add-course">Добавить</button>
+      <button type="button" class="delete" test-id="remove-course">Удалить</button>
     </div>
     
     <button type="submit" class="create">Создать резюме</button>
   </form>
+
+  <script src="scripts/resume.js" defer></script>
+  <script src="scripts/form.js" defer></script>
+
 </body>
 </html>
