@@ -1,31 +1,109 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const addInterestBtn = document.querySelector(
-    'button[test-id="add-interest"]',
-  );
-  const removeInterestBtn = document.querySelector(
-    'button[test-id="remove-interest"]',
-  );
-  const interestsContainer = document.querySelector(".interest-container");
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    // Сбор данных об остальных полях формы
+    const formData = new FormData(form);
+
+    const excludedFields = [
+      "language-name", "language-level", "interest",
+      "job-place", "job-title", "job-date-start", "job-date-end", "job-description",
+      "education-title", "education-place", "education-date-start", "education-date-end", "education-description",
+      "course-title", "course-place", "course-date-start", "course-date-end"
+    ];
+
+    excludedFields.forEach(field => {
+      formData.delete(field);
+    });
 
 
-  // Добавление интереса
-  addInterestBtn.addEventListener("click", function () {
-    const label = document.createElement("label");
-    const span = document.createElement("span");
-    span.textContent = "Ещё один интерес";
+    // Сбор данных об интересах
+    const interestsData = []
 
-    const input = document.createElement("input");
-    input.setAttribute("test-id", "interest");
-    input.type = "text";
-    input.name = "interest";
+    const interestInputs = document.querySelectorAll('input[name="interest"]');
+    interestInputs.forEach(input => {
+      interestsData.push(input.value);
+    });
 
-    label.appendChild(span);
-    label.appendChild(input);
+    // Сбор данных о языках
+    const languagesData = [];
+    const languageContainers = document.querySelectorAll(".language");
+    languageContainers.forEach(container => {
+      const languageData = {
+        name: container.querySelector('input[name="language-name"]').value,
+        level: container.querySelector('input[name="language-level"]').value
+      };
+      languagesData.push(languageData);
+    });
 
-    interestsContainer.appendChild(label);
+    // Сбор данных о работе
+    const jobsData = [];
+    const jobContainers = document.querySelectorAll(".work");
+    jobContainers.forEach(container => {
+      const jobData = {
+        place: container.querySelector('input[name="job-place"]').value,
+        title: container.querySelector('input[name="job-title"]').value,
+        startDate: container.querySelector('input[name="job-date-start"]').value,
+        endDate: container.querySelector('input[name="job-date-end"]').value,
+        description: container.querySelector('textarea[name="job-description"]').value
+      };
+      jobsData.push(jobData);
+    });
+
+    // Сбор данных об образовании
+    const educationsData = [];
+    const educationContainers = document.querySelectorAll(".education");
+    educationContainers.forEach(container => {
+      const educationData = {
+        title: container.querySelector('input[name="education-title"]').value,
+        place: container.querySelector('input[name="education-place"]').value,
+        startDate: container.querySelector('input[name="education-date-start"]').value,
+        endDate: container.querySelector('input[name="education-date-end"]').value,
+        description: container.querySelector('textarea[name="education-description"]').value
+      };
+      educationsData.push(educationData);
+    });
+
+    // Сбор данных о курсах
+    const coursesData = [];
+    const courseContainers = document.querySelectorAll(".course");
+    courseContainers.forEach(container => {
+      const courseData = {
+        title: container.querySelector('input[name="course-title"]').value,
+        organization: container.querySelector('input[name="course-place"]').value,
+        startDate: container.querySelector('input[name="course-date-start"]').value,
+        endDate: container.querySelector('input[name="course-date-end"]').value
+      };
+      coursesData.push(courseData);
+    });
+
+    // Выполнение необходимых действий с данными (например, отправка на сервер)
+    console.log("Form Data", formData);
+    console.log("Interests Data", interestsData);
+    console.log("Languages Data", languagesData);
+    console.log("Jobs Data", jobsData);
+    console.log("Educations Data", educationsData);
+    console.log("Courses Data", coursesData);
   });
 
-    // Удаление интереса
+  // Добавление интереса
+  const addInterestBtn = document.querySelector('button[test-id="add-interest"]');
+  const interestsContainer = document.querySelector(".interest-container");
+
+  addInterestBtn.addEventListener("click", function () {
+    const newInterest = `
+      <label>
+        <span>Ещё один интерес</span>
+        <input type="text" test-id="interest" name="interest">
+      </label>
+    `;
+    interestsContainer.insertAdjacentHTML("beforeend", newInterest);
+  });
+
+  // Удаление интереса
+  const removeInterestBtn = document.querySelector('button[test-id="remove-interest"]');
   removeInterestBtn.addEventListener("click", function () {
     const inputs = interestsContainer.getElementsByTagName("label");
     if (inputs.length > 0) {
@@ -33,175 +111,151 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Добавление языка
+  const addLanguageBtn = document.querySelector('button[test-id="add-language"]');
+  const languagesContainer = document.querySelector(".language-container");
 
-    const addLanguageBtn = document.querySelector('button[test-id="add-language"]');
-    const removeLanguageBtn = document.querySelector('button[test-id="remove-language"]');
-    const languagesContainer = document.querySelector(".language-container");
+  addLanguageBtn.addEventListener("click", function () {
+    const newLanguage = `
+      <div class="language">
+        <label>
+          <span>Язык</span>
+          <input type="text" test-id="language-name" name="language-name">
+        </label>
+        <label>
+          <span>Уровень</span>
+          <input type="text" test-id="language-level" name="language-level">
+        </label>
+      </div>
+    `;
+    languagesContainer.insertAdjacentHTML("beforeend", newLanguage);
+  });
 
-    // Добавление языка
-    addLanguageBtn.addEventListener("click", function () {
-        const language = document.createElement("div");
-        language.className = "language";
+  // Удаление языка
+  const removeLanguageBtn = document.querySelector('button[test-id="remove-language"]');
+  removeLanguageBtn.addEventListener("click", function () {
+    const languages = languagesContainer.getElementsByClassName("language");
+    if (languages.length > 0) {
+      languagesContainer.removeChild(languages[languages.length - 1]);
+    }
+  });
 
-        const labelLanguage = document.createElement("label");
-        const span = document.createElement("span");
-        span.textContent = "Язык";
+  // Добавление работы
+  const addJobBtn = document.querySelector('button[test-id="add-job"]');
+  const workContainer = document.querySelector(".work-container");
 
-        const inputLanguage = document.createElement("input");
-        inputLanguage.type = "text";
-        inputLanguage.setAttribute("test-id", "language-name");
+  addJobBtn.addEventListener("click", function () {
+    const newJob = `
+      <div class="work">
+        <label>
+          <span>Место работы</span>
+          <input type="text" test-id="job-place" name="job-place">
+        </label>
+        <label>
+          <span>Должность</span>
+          <input type="text" test-id="job-title" name="job-title">
+        </label>
+        <label>
+          <span>Начало</span>
+          <input type="date" test-id="job-date-start" name="job-date-start">
+        </label>
+        <label>
+          <span>Конец</span>
+          <input type="date" test-id="job-date-end" name="job-date-end">
+        </label>
+        <label>
+          <span>Описание</span>
+          <textarea class="description" test-id="job-description" name="job-description"></textarea>
+        </label>
+      </div>
+    `;
+    workContainer.insertAdjacentHTML("beforeend", newJob);
+  });
 
-        labelLanguage.appendChild(span);
-        labelLanguage.appendChild(inputLanguage);
+  // Удаление работы
+  const removeJobBtn = document.querySelector('button[test-id="remove-job"]');
+  removeJobBtn.addEventListener("click", function () {
+    const works = workContainer.getElementsByClassName("work");
+    if (works.length > 0) {
+      workContainer.removeChild(works[works.length - 1]);
+    }
+  });
 
-        const labelLevel = document.createElement("label");
-        const spanLevel = document.createElement("span");
-        spanLevel.textContent = "Уровень";
+  // Добавление образования
+  const addEducationBtn = document.querySelector('button[test-id="add-education"]');
+  const educationContainer = document.querySelector(".education-container");
 
-        const inputLevel = document.createElement("input");
-        inputLevel.type = "text";
-        inputLevel.setAttribute("test-id", "language-level");
+  addEducationBtn.addEventListener("click", function () {
+    const newEducation = `
+      <div class="education">
+        <label>
+          <span>Высшее образование</span>
+          <input type="text" test-id="education-title" name="education-title">
+        </label>
+        <label>
+          <span>Место обучения</span>
+          <input type="text" test-id="education-place" name="education-place">
+        </label>
+        <label>
+          <span>Начало</span>
+          <input type="date" test-id="education-date-start" name="education-date-start">
+        </label>
+        <label>
+          <span>Конец</span>
+          <input type="date" test-id="education-date-end" name="education-date-end">
+        </label>
+        <label>
+          <span>Описание</span>
+          <textarea class="description" test-id="education-description" name="education-description"></textarea>
+        </label>
+      </div>
+    `;
+    educationContainer.insertAdjacentHTML("beforeend", newEducation);
+  });
 
-        labelLevel.appendChild(spanLevel);
-        labelLevel.appendChild(inputLevel);
+  // Удаление образования
+  const removeEducationBtn = document.querySelector('button[test-id="remove-education"]');
+  removeEducationBtn.addEventListener("click", function () {
+    const educations = educationContainer.getElementsByClassName("education");
+    if (educations.length > 0) {
+      educationContainer.removeChild(educations[educations.length - 1]);
+    }
+  });
 
-        language.appendChild(labelLanguage);
-        language.appendChild(labelLevel);
+  // Добавление курсов
+  const addCourseBtn = document.querySelector('button[test-id="add-course"]');
+  const courseContainer = document.querySelector(".course-container");
 
-        languagesContainer.appendChild(language);
-    
-    });
+  addCourseBtn.addEventListener("click", function () {
+    const newCourse = `
+      <div class="course">
+        <label>
+          <span>Название</span>
+          <input type="text" test-id="course-title" name="course-title">
+        </label>
+        <label>
+          <span>Организация</span>
+          <input type="text" test-id="course-place" name="course-place">
+        </label>
+        <label>
+          <span>Начало</span>
+          <input type="date" test-id="course-date-start" name="course-date-start">
+        </label>
+        <label>
+          <span>Конец</span>
+          <input type="date" test-id="course-date-end" name="course-date-end">
+        </label>
+      </div>
+    `;
+    courseContainer.insertAdjacentHTML("beforeend", newCourse);
+  });
 
-    // Удаление языка
-    removeLanguageBtn.addEventListener("click", function () {
-        const languages = languagesContainer.getElementsByClassName("language");
-        if (languages.length > 0) {
-            languagesContainer.removeChild(languages[languages.length - 1]);
-        }
-    });
-
-    const addJobBtn = document.querySelector('button[test-id="add-job"]');
-    const removeJobBtn = document.querySelector('button[test-id="remove-job"]');
-    const workContainer = document.querySelector(".work-container");
-  
-    addJobBtn.addEventListener("click", function () {
-      const work = document.createElement("div");
-      work.className = "work";
-  
-      const labels = [
-        { labelText: "Место работы", inputTestId: "job-place" },
-        { labelText: "Должность", inputTestId: "job-title" },
-        { labelText: "Начало", inputTestId: "job-date-start", inputType: "date" },
-        { labelText: "Конец", inputTestId: "job-date-end", inputType: "date" },
-        { labelText: "Описание", inputTestId: "job-description", inputTag: "textarea" },
-      ];
-  
-      labels.forEach(labelInfo => {
-        const label = document.createElement("label");
-        const span = document.createElement("span");
-        span.textContent = labelInfo.labelText;
-  
-        const input = document.createElement(labelInfo.inputTag || "input");
-        input.type = labelInfo.inputType || "text";
-        input.setAttribute("test-id", labelInfo.inputTestId);
-  
-        label.appendChild(span);
-        label.appendChild(input);
-        work.appendChild(label);
-      });
-  
-      workContainer.appendChild(work);
-    });
-  
-    removeJobBtn.addEventListener("click", function () {
-      const works = workContainer.getElementsByClassName("work");
-      if (works.length > 0) {
-        workContainer.removeChild(works[works.length - 1]);
-      }
-    });
-  
-    // Функция для добавления образования
-    const addEducationBtn = document.querySelector('button[test-id="add-education"]');
-    const removeEducationBtn = document.querySelector('button[test-id="remove-education"]');
-    const educationContainer = document.querySelector(".education-container");
-  
-    addEducationBtn.addEventListener("click", function () {
-      const education = document.createElement("div");
-      education.className = "education";
-  
-      const labels = [
-        { labelText: "Высшее образование", inputTestId: "education-title" },
-        { labelText: "Место обучения", inputTestId: "education-place" },
-        { labelText: "Начало", inputTestId: "education-date-start", inputType: "date" },
-        { labelText: "Конец", inputTestId: "education-date-end", inputType: "date" },
-        { labelText: "Описание", inputTestId: "education-description", inputTag: "textarea" },
-      ];
-  
-      labels.forEach(labelInfo => {
-        const label = document.createElement("label");
-        const span = document.createElement("span");
-        span.textContent = labelInfo.labelText;
-  
-        const input = document.createElement(labelInfo.inputTag || "input");
-        if (labelInfo.inputTag === "textarea") {
-          input.className = "description"
-        }
-        input.type = labelInfo.inputType || "text";
-        input.setAttribute("test-id", labelInfo.inputTestId);
-  
-        label.appendChild(span);
-        label.appendChild(input);
-        education.appendChild(label);
-      });
-  
-      educationContainer.appendChild(education);
-    });
-  
-    removeEducationBtn.addEventListener("click", function () {
-      const educations = educationContainer.getElementsByClassName("education");
-      if (educations.length > 0) {
-        educationContainer.removeChild(educations[educations.length - 1]);
-      }
-    });
-  
-    // Функция для добавления курсов
-    const addCourseBtn = document.querySelector('button[test-id="add-course"]');
-    const removeCourseBtn = document.querySelector('button[test-id="remove-course"]');
-    const courseContainer = document.querySelector(".course-container");
-  
-    addCourseBtn.addEventListener("click", function () {
-      const course = document.createElement("div");
-      course.className = "course";
-  
-      const labels = [
-        { labelText: "Название", inputTestId: "course-title" },
-        { labelText: "Организация", inputTestId: "course-place" },
-        { labelText: "Начало", inputTestId: "course-date-start", inputType: "date" },
-        { labelText: "Конец", inputTestId: "course-date-end", inputType: "date" },
-      ];
-  
-      labels.forEach(labelInfo => {
-        const label = document.createElement("label");
-        const span = document.createElement("span");
-        span.textContent = labelInfo.labelText;
-  
-        const input = document.createElement("input");
-        input.type = labelInfo.inputType || "text";
-        input.setAttribute("test-id", labelInfo.inputTestId);
-  
-        label.appendChild(span);
-        label.appendChild(input);
-        course.appendChild(label);
-      });
-  
-      courseContainer.appendChild(course);
-    });
-  
-    removeCourseBtn.addEventListener("click", function () {
-      const courses = courseContainer.getElementsByClassName("course");
-      if (courses.length > 0) {
-        courseContainer.removeChild(courses[courses.length - 1]);
-      }
-    });
-
+  // Удаление курсов
+  const removeCourseBtn = document.querySelector('button[test-id="remove-course"]');
+  removeCourseBtn.addEventListener("click", function () {
+    const courses = courseContainer.getElementsByClassName("course");
+    if (courses.length > 0) {
+      courseContainer.removeChild(courses[courses.length - 1]);
+    }
+  });
 });

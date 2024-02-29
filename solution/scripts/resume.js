@@ -1,245 +1,127 @@
 function createPersonalInfoComponent(personalInfoItems) {
-    const personalInfoComponent = document.createElement('div');
-    personalInfoComponent.className = 'personal-info';
-
-    const personalInfoTitle = document.createElement('h2');
-    personalInfoTitle.textContent = 'Личные данные';
-    personalInfoComponent.appendChild(personalInfoTitle);
-
-    const personalInfoHr = document.createElement('hr');
-    personalInfoHr.className = 'side-hr';
-    personalInfoComponent.appendChild(personalInfoHr);
-
-    const container = document.createElement('div');
-    container.className = 'personal-container';
-
-    personalInfoItems.forEach(item => {
-        const infoItem = document.createElement('div');
-        infoItem.className = 'personal-info-item';
-
-        const title = document.createElement('h3');
-        title.textContent = item.title;
-
-        const content = document.createElement('p');
-        content.textContent = item.content;
-
-        infoItem.appendChild(title);
-        infoItem.appendChild(content);
-
-        container.appendChild(infoItem);
-    });
-
-    personalInfoComponent.appendChild(container);
-    return personalInfoComponent;
+    return `
+        <div class="personal-info">
+            <h2>Личные данные</h2>
+            <hr class="side-hr">
+            <div class="personal-container">
+                ${personalInfoItems.map(item => `
+                    <div class="personal-info-item">
+                        <h3>${item.title}</h3>
+                        <p>${item.content}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
 }
 
 function createInterestsComponent(interests) {
-    const interestsComponent = document.createElement('div');
-    interestsComponent.className = 'personal-info';
-
-    const interestsTitle = document.createElement('h2');
-    interestsTitle.textContent = 'Интересы';
-    interestsComponent.appendChild(interestsTitle);
-
-    const interestsHr = document.createElement('hr');
-    interestsHr.className = 'side-hr';
-    interestsComponent.appendChild(interestsHr);
-
-    interests.forEach(interest => {
-        const interestItem = document.createElement('div');
-        interestItem.className = 'personal-info-item';
-
-        const title = document.createElement('h3');
-        title.textContent = interest;
-
-        interestItem.appendChild(title);
-        interestsComponent.appendChild(interestItem);
-    });
-
-    return interestsComponent;
+    return `
+        <div class="personal-info">
+            <h2>Интересы</h2>
+            <hr class="side-hr">
+            ${interests.map(interest => `
+                <div class="personal-info-item">
+                    <h3>${interest}</h3>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
-
 function createLanguagesComponent(languages) {
-    const languagesComponent = document.createElement('div');
-    languagesComponent.className = 'personal-info lang-container';
-
-    const languagesTitle = document.createElement('h2');
-    languagesTitle.textContent = 'Языки';
-    languagesComponent.appendChild(languagesTitle);
-
-    const languagesHr = document.createElement('hr');
-    languagesHr.className = 'side-hr';
-    languagesComponent.appendChild(languagesHr);
-
-    languages.forEach(lang => {
-        const langItem = document.createElement('div');
-        langItem.className = 'personal-info-item lang';
-
-        const title = document.createElement('h3');
-        title.textContent = lang.language;
-
-        const level = document.createElement('p');
-        level.textContent = lang.level;
-
-        langItem.appendChild(title);
-        langItem.appendChild(level);
-
-        languagesComponent.appendChild(langItem);
-    });
-
-    return languagesComponent;
+    return `
+        <div class="personal-info lang-container">
+            <h2>Языки</h2>
+            <hr class="side-hr">
+            ${languages.map(lang => `
+                <div class="personal-info-item lang">
+                    <h3>${lang.language}</h3>
+                    <p>${lang.level}</p>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
 function createMainInfoComponent(mainInfo, titleText) {
-    const mainInfoComponent = document.createElement('div');
-    mainInfoComponent.className = 'main-info';
-
-    const mainInfoTitle = document.createElement('h2');
-    mainInfoTitle.textContent = titleText;
-    mainInfoComponent.appendChild(mainInfoTitle);
-
-    const mainInfoHr = document.createElement('hr');
-    mainInfoHr.className = 'main-info-hr';
-    mainInfoComponent.appendChild(mainInfoHr);
-
-    const mainList = document.createElement('div');
-    if (!titleText.includes('Курсы')) {
-        mainList.className = 'main-info-list';
-    } else {
-        mainList.className = 'main-info-list no-description';
-    }
-
-    mainInfo.forEach(item => {
-
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'main-info-item';
-
-        const mainInfoRow = document.createElement('div');
-        mainInfoRow.className = 'main-info-row';
-
-        const mainInfoColumn = document.createElement('div');
-        mainInfoColumn.className = 'main-info-column';
-
-        const title = document.createElement('h3');
-        title.textContent = item.title;
-
-        const where = document.createElement('h4');
-        where.textContent = item.where;
-
-        mainInfoColumn.appendChild(title);
-        mainInfoColumn.appendChild(where);
-
-        const date = document.createElement('div');
-        date.className = 'date';
-        date.innerHTML = `<p>${item.date}</p>`;
-
-        mainInfoRow.appendChild(mainInfoColumn);
-        mainInfoRow.appendChild(date);
-
-        itemDiv.appendChild(mainInfoRow);
-        if (item.description) {
-            const description = document.createElement('div');
-            description.className = 'main-info-description';
-            description.innerHTML = `<p>${item.description}</p>`;
-            itemDiv.appendChild(description);
-        }
-       
-        mainList.appendChild(itemDiv);
-    });
-
-    mainInfoComponent.appendChild(mainList);
-
-    return mainInfoComponent;
+    return `
+        <div class="main-info">
+            <h2>${titleText}</h2>
+            <hr class="main-info-hr">
+            <div class="main-info-list ${titleText.includes('Курсы') ? 'no-description' : ''}">
+                ${mainInfo.map(item => `
+                    <div class="main-info-item">
+                        <div class="main-info-row">
+                            <div class="main-info-column">
+                                <h3>${item.title}</h3>
+                                <h4>${item.where}</h4>
+                            </div>
+                            <div class="date">
+                                <p>${item.date}</p>
+                            </div>
+                        </div>
+                        ${item.description ? `<div class="main-info-description"><p>${item.description}</p></div>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
 }
 
 function createTitleComponent(titleText) {
-    const titleComponent = document.createElement('div');
-    titleComponent.className = 'title';
-
-    const title = document.createElement('h1');
-    title.textContent = titleText;
-
-    titleComponent.appendChild(title);
-
-    const titleHr = document.createElement('hr');
-    titleHr.className = 'main-hr';
-    titleComponent.appendChild(titleHr);
-
-    return titleComponent;
+    return `
+        <div class="title">
+            <h1>${titleText}</h1>
+            <hr class="main-hr">
+        </div>
+    `;
 }
 
 function createDescriptionComponent(descriptionText) {
-    const descriptionComponent = document.createElement('div');
-    descriptionComponent.className = 'description';
-
-    const descriptionTextElement = document.createElement('p');
-    descriptionTextElement.className = 'long';
-
-    descriptionTextElement.textContent = descriptionText;
-
-    descriptionComponent.appendChild(descriptionTextElement);
-
-    return descriptionComponent;
+    return `
+        <div class="description">
+            <p class="long">${descriptionText}</p>
+        </div>
+    `;
 }
 
 function createMainContainer(titleText, descriptionText, job, education, courses) {
-    const mainContainer = document.createElement('div');
-    mainContainer.className = 'main-container';
-
-    mainContainer.appendChild(createTitleComponent(titleText));
-    mainContainer.appendChild(createDescriptionComponent(descriptionText));
-
-   const mainInfoContainer = document.createElement('div');
-    mainInfoContainer.className = 'main-info-container';
-
-    mainInfoContainer.appendChild(createMainInfoComponent(job, 'Опыт работы'));
-    mainInfoContainer.appendChild(createMainInfoComponent(education, 'Образование и квалификация'));
-    mainInfoContainer.appendChild(createMainInfoComponent(courses, 'Курсы'));
-
-    mainContainer.appendChild(mainInfoContainer);
-
-    return mainContainer;
+    return `
+        <div class="main-container">
+            ${createTitleComponent(titleText)}
+            ${createDescriptionComponent(descriptionText)}
+            <div class="main-info-container">
+                ${createMainInfoComponent(job, 'Опыт работы')}
+                ${createMainInfoComponent(education, 'Образование и квалификация')}
+                ${createMainInfoComponent(courses, 'Курсы')}
+            </div>
+        </div>
+    `;
 }
 
 function createSidePanel(imageSrc, imageAlt, personalInfoItems, interests, languages) {
-    const sidePanel = document.createElement('div');
-    sidePanel.className = 'side-panel';
-
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'image-container';
-
-    const image = document.createElement('img');
-    image.src = imageSrc;
-    image.alt = imageAlt;
-    image.className = 'image';
-
-    imageContainer.appendChild(image);
-    sidePanel.appendChild(imageContainer);
-
-    const personalContainer = document.createElement('div');
-    personalContainer.className = 'personal';
-
-    personalContainer.appendChild(createPersonalInfoComponent(personalInfoItems));
-    personalContainer.appendChild(createInterestsComponent(interests));
-    personalContainer.appendChild(createLanguagesComponent(languages));
-
-    sidePanel.appendChild(personalContainer);
-
-    return sidePanel;
+    return `
+        <div class="side-panel">
+            <div class="image-container">
+                <img src="${imageSrc}" alt="${imageAlt}" class="image">
+            </div>
+            <div class="personal">
+                ${createPersonalInfoComponent(personalInfoItems)}
+                ${createInterestsComponent(interests)}
+                ${createLanguagesComponent(languages)}
+            </div>
+        </div>
+    `;
 }
 
 function createResumePageComponent(imageSrc, imageAlt, titleText, descriptionText, personalInfoItems, interests, languages, job, education, courses) {
-    const resumePage = document.createElement('div');
-    resumePage.className = 'container';
-
-    const sidePanel = createSidePanel(imageSrc, imageAlt, personalInfoItems, interests, languages);
-    const mainContainer = createMainContainer(titleText, descriptionText, job, education, courses);
-
-    resumePage.appendChild(sidePanel);
-    resumePage.appendChild(mainContainer);
-
-    return resumePage;
+    return `
+        <div class="container">
+            ${createSidePanel(imageSrc, imageAlt, personalInfoItems, interests, languages)}
+            ${createMainContainer(titleText, descriptionText, job, education, courses)}
+        </div>
+    `;
 }
 
 const personalInfoItems = [
@@ -305,13 +187,9 @@ const courses = [
     },
 ];
 
-
-
 const imageSrc = 'images/photo.jpg';
 const imageAlt = 'Фото';
 const titleText = 'Данилов Дмитрий Евгеньевич';
 const descriptionText = 'В целом достаточно сильный разработчик, я бы даже сказал умный, вообще умен не по годам. Подниму ваш проект, удалю все легаси, и все коммиты будут маленькими по 15 строк кода.';
 
-
-// document.body.appendChild(createResumePageComponent(imageSrc, imageAlt, titleText, descriptionText, personalInfoItems, interests, languages, job, education, courses));
-
+document.body.innerHTML = createResumePageComponent(imageSrc, imageAlt, titleText, descriptionText, personalInfoItems, interests, languages, job, education, courses);
