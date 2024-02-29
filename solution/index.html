@@ -20,7 +20,7 @@
     <h2 class="form-h">Личные данные</h2>
     <label>
       <span>ФИО</span>
-      <input type="text" name="fio" required test-id="personal-info" />
+      <input type="text" name="fio" test-id="personal-info" />
     </label>
 
     <label>
@@ -88,11 +88,6 @@
     <div class="sub-form work-container">
       <div class="work">
         <label>
-          <span>Место работы</span>
-          <input type="text" name="job-place" test-id="job-place" />
-        </label>
-  
-        <label>
           <span>Должность</span>
           <input type="text" name="job-title" test-id="job-title" />
         </label>
@@ -105,6 +100,11 @@
         <label>
           <span>Конец</span>
           <input type="text" name="job-date-end" test-id="job-date-end" />
+        </label>
+
+        <label>
+          <span>Место работы</span>
+          <input type="text" name="job-place" test-id="job-place" />
         </label>
   
         <label>
@@ -130,11 +130,6 @@
         </label>
   
         <label>
-          <span>Место обучения</span>
-          <input type="text" name="education-place" test-id="education-place" />
-        </label>
-  
-        <label>
           <span>Начало</span>
           <input type="text" name="education-date-start" test-id="education-date-start" />
         </label>
@@ -142,6 +137,11 @@
         <label>
           <span>Конец</span>
           <input type="text" name="education-date-end" test-id="education-date-end" />
+        </label>
+
+        <label>
+          <span>Место обучения</span>
+          <input type="text" name="education-place" test-id="education-place" />
         </label>
   
         <label>
@@ -187,7 +187,7 @@
       <button type="button" class="delete" test-id="remove-course">Удалить</button>
     </div>
     
-    <button type="submit" class="create">Создать резюме</button>
+    <button type="submit" class="create" test-id="generate-resume" disabled>Создать резюме</button>
   </form>
 
   </div>

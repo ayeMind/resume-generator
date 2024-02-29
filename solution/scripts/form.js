@@ -1,6 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const createBtn = document.querySelector('.create');
+  const fioInput = document.querySelector('input[name="fio"]');
   const form = document.querySelector("form");
 
+  const checkFio = () => {
+    if (fioInput.value.length > 0) {
+      createBtn.disabled = false;
+    } else {
+      createBtn.disabled = true;
+      }
+    }
+
+  checkFio()
+    
+  fioInput.addEventListener("input", function () {
+    checkFio()
+  });
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -39,6 +54,17 @@ document.addEventListener("DOMContentLoaded", function () {
       languagesData.push(languageData);
     });
 
+    const changeDateType = (date) => {
+
+      if (!date) return ''
+
+      const dateObj = new Date(date);
+      const month = dateObj.toLocaleString('ru-RU', { month: 'long' });
+      const year = dateObj.getFullYear();
+      return `${month} ${year} г.`;
+    }
+
+
     // Сбор данных о работе
     const jobsData = [];
     const jobContainers = document.querySelectorAll(".work");
@@ -46,9 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const jobData = {
         title: container.querySelector('input[name="job-title"]').value,
         place: container.querySelector('input[name="job-place"]').value,
-        startDate: container.querySelector('input[name="job-date-start"]').value,
-        endDate: container.querySelector('input[name="job-date-end"]').value,
-        description: container.querySelector('textarea[name="job-description"]').value
+        startDate: changeDateType(container.querySelector('input[name="job-date-start"]').value),
+        endDate: changeDateType(container.querySelector('input[name="job-date-end"]').value),
+        description: container.querySelector('textarea[name="job-description"]').value,
       };
       jobsData.push(jobData);
     });
@@ -56,12 +82,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Сбор данных об образовании
     const educationsData = [];
     const educationContainers = document.querySelectorAll(".education");
+
     educationContainers.forEach(container => {
       const educationData = {
         title: container.querySelector('input[name="education-title"]').value,
+        startDate: changeDateType(container.querySelector('input[name="education-date-start"]').value),
+        endDate: changeDateType(container.querySelector('input[name="education-date-end"]').value),
         place: container.querySelector('input[name="education-place"]').value,
-        startDate: container.querySelector('input[name="education-date-start"]').value,
-        endDate: container.querySelector('input[name="education-date-end"]').value,
         description: container.querySelector('textarea[name="education-description"]').value
       };
       educationsData.push(educationData);
@@ -74,8 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const courseData = {
         title: container.querySelector('input[name="course-title"]').value,
         place: container.querySelector('input[name="course-place"]').value,
-        startDate: container.querySelector('input[name="course-date-start"]').value,
-        endDate: container.querySelector('input[name="course-date-end"]').value
+        startDate: changeDateType(container.querySelector('input[name="course-date-start"]').value),
+        endDate: changeDateType(container.querySelector('input[name="course-date-end"]').value),
       };
       coursesData.push(courseData);
     });
@@ -172,11 +199,11 @@ document.addEventListener("DOMContentLoaded", function () {
         </label>
         <label>
           <span>Начало</span>
-          <input type="date" test-id="job-date-start" name="job-date-start">
+          <input type="text" test-id="job-date-start" name="job-date-start">
         </label>
         <label>
           <span>Конец</span>
-          <input type="date" test-id="job-date-end" name="job-date-end">
+          <input type="text" test-id="job-date-end" name="job-date-end">
         </label>
         <label>
           <span>Описание</span>
@@ -213,11 +240,11 @@ document.addEventListener("DOMContentLoaded", function () {
         </label>
         <label>
           <span>Начало</span>
-          <input type="date" test-id="education-date-start" name="education-date-start">
+          <input type="text" test-id="education-date-start" name="education-date-start">
         </label>
         <label>
           <span>Конец</span>
-          <input type="date" test-id="education-date-end" name="education-date-end">
+          <input type="text" test-id="education-date-end" name="education-date-end">
         </label>
         <label>
           <span>Описание</span>
@@ -254,11 +281,11 @@ document.addEventListener("DOMContentLoaded", function () {
         </label>
         <label>
           <span>Начало</span>
-          <input type="date" test-id="course-date-start" name="course-date-start">
+          <input type="text" test-id="course-date-start" name="course-date-start">
         </label>
         <label>
           <span>Конец</span>
-          <input type="date" test-id="course-date-end" name="course-date-end">
+          <input type="text" test-id="course-date-end" name="course-date-end">
         </label>
       </div>
     `;

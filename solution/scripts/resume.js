@@ -46,7 +46,7 @@ function createInterestsComponent(interests) {
 }
 
 function createLanguagesComponent(languages) {
-  if (languages.every((lang) => lang.name === "")) {
+  if (languages.every((lang) => lang.name === "" || lang.level === "")) {
     return "";
   }
 
@@ -85,11 +85,14 @@ function createMainInfoComponent(mainInfo, titleText) {
                         <div class="main-info-row">
                             <div class="main-info-column">
                                 <h3>${item.title}</h3>
-                                <h4>${item.place}</h4>
+                                <h4>${item.place ? item.place : ""}</h4>
                             </div>
-                            <div class="date">
-                                <p>${item.startDate} - ${item.endDate}</p>
-                            </div>
+                            ${!item.startDate ? "" : 
+                              `<div class="date">
+                                <p>${item.startDate} — ${item.endDate ? item.endDate : "наст. время"}</p>
+                              </div>`
+                            }
+                            
                         </div>
                         ${item.description ? `<div class="main-info-description"><p>${item.description}</p></div>` : ""}
                     </div>
@@ -135,7 +138,7 @@ function createMainContainer(
   fio,
 ) {
   return `
-        <div class="main-container">
+        <div class="main-container" test-id="resume-main-article">
             ${createTitleComponent(titleText, fio)}
             ${createDescriptionComponent(descriptionText)}
             <div class="main-info-container">
@@ -155,7 +158,7 @@ function createSidePanel(
   languages,
 ) {
   return `
-        <div class="side-panel">
+        <div class="side-panel" test-id="resume-main-article">
             <div class="image-container">
                 <img src="${imageSrc}" alt="${imageAlt}" class="image">
             </div>
@@ -183,11 +186,11 @@ function createResumePageComponent(
   const fio = personalInfoItems.find((item) => item.title === "ФИО").content;
 
   return `
-        <div class="container">
+        <div class="container" test-id="resume-main-content">
             ${createSidePanel(imageSrc, imageAlt, personalInfoItems, interests, languages)}
             ${createMainContainer(titleText, descriptionText, job, education, courses, fio)}
         </div>
-        <button class="btn-return">Вернуться</button>
+        <button class="btn-return" test-id="back-button">Вернуться</button>
     `;
 }
 
@@ -265,9 +268,17 @@ window.addEventListener("resumeDisplayed", function () {
 
   const titleText = resumeData.mainInfo["resume-title-field"];
   const descriptionText = resumeData.mainInfo["personal-description"];
+
+  let date;
+  if (resumeData.mainInfo["birth"]) {
+    date = new Date(resumeData.mainInfo["birth"]).toLocaleDateString("ru-RU");
+  } else {
+    date = "";
+  }
+
   const personalInfoItems = [
     { title: "ФИО", content: resumeData.mainInfo["fio"] },
-    { title: "Дата рождения", content: resumeData.mainInfo["birth"] },
+    { title: "Дата рождения", content: date},
     { title: "Город", content: resumeData.mainInfo["city"] },
     { title: "Номер телефона", content: resumeData.mainInfo["phone"] },
     { title: "Email", content: resumeData.mainInfo["email"] },
@@ -295,8 +306,11 @@ window.addEventListener("resumeDisplayed", function () {
     courses,
   );
 
+  const createbtn = document.querySelector(".create");
 
+  createbtn.disabled = true;
   formDiv.classList.add("display-none")
+
   resumeDiv.classList.remove("display-none")
 
 //   console.log(localStorage.getItem("resumeData"));
@@ -304,11 +318,16 @@ window.addEventListener("resumeDisplayed", function () {
   const btnReturn = document.querySelector(".btn-return");
   
   btnReturn.addEventListener("click", function () {
+
     localStorage.removeItem("resumeData");
 
     resumeDiv.innerHTML = '';
     resumeDiv.classList.add("display-none")
+    
+    createbtn.disabled = false;
     formDiv.classList.remove("display-none")
+
+
 
   });
 });
