@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("form");
 
+
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -79,13 +80,23 @@ document.addEventListener("DOMContentLoaded", function () {
       coursesData.push(courseData);
     });
 
-    // Выполнение необходимых действий с данными (например, отправка на сервер)
-    console.log("Form Data", formData);
-    console.log("Interests Data", interestsData);
-    console.log("Languages Data", languagesData);
-    console.log("Jobs Data", jobsData);
-    console.log("Educations Data", educationsData);
-    console.log("Courses Data", coursesData);
+
+    // ВСЁ В ЛОКАЛСТОРАДЖ БОГУ LOCALSTORAGE
+    const data = {
+      mainInfo: Object.fromEntries(formData),
+      interests: interestsData,
+      languages: languagesData,
+      jobs: jobsData,
+      educations: educationsData,
+      courses: coursesData
+    };
+
+    localStorage.setItem("resumeData", JSON.stringify(data));
+
+    const e = new CustomEvent('resumeDisplayed');
+    window.dispatchEvent(e);
+
+    
   });
 
   // Добавление интереса
@@ -165,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </label>
         <label>
           <span>Описание</span>
-          <textarea class="description" test-id="job-description" name="job-description"></textarea>
+          <textarea class="description-area" test-id="job-description" name="job-description"></textarea>
         </label>
       </div>
     `;
@@ -206,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </label>
         <label>
           <span>Описание</span>
-          <textarea class="description" test-id="education-description" name="education-description"></textarea>
+          <textarea class="description-area" test-id="education-description" name="education-description"></textarea>
         </label>
       </div>
     `;
