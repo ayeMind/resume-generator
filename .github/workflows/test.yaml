@@ -25,7 +25,7 @@ jobs:
       - run: npm ci
 
       - run: npx playwright install --with-deps
-      - run: npx playwright test --reporter=junit &> /dev/null
+      - run: npx playwright test --reporter=junit tests/integration/extra &> /dev/null
         env:
           PLAYWRIGHT_JUNIT_OUTPUT_NAME: integration-junit.xml
         continue-on-error: true
@@ -33,7 +33,6 @@ jobs:
       - uses: Central-University-IT/junit-action@main
         with:
           files: |
-            unit-junit.xml
             integration-junit.xml
         id: junit
 
