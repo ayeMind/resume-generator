@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const jobContainers = document.querySelectorAll(".work");
     jobContainers.forEach(container => {
       const jobData = {
-        place: container.querySelector('input[name="job-place"]').value,
         title: container.querySelector('input[name="job-title"]').value,
+        place: container.querySelector('input[name="job-place"]').value,
         startDate: container.querySelector('input[name="job-date-start"]').value,
         endDate: container.querySelector('input[name="job-date-end"]').value,
         description: container.querySelector('textarea[name="job-description"]').value
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     courseContainers.forEach(container => {
       const courseData = {
         title: container.querySelector('input[name="course-title"]').value,
-        organization: container.querySelector('input[name="course-place"]').value,
+        place: container.querySelector('input[name="course-place"]').value,
         startDate: container.querySelector('input[name="course-date-start"]').value,
         endDate: container.querySelector('input[name="course-date-end"]').value
       };
@@ -93,6 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     localStorage.setItem("resumeData", JSON.stringify(data));
 
+    const currentBodyHTML = document.body.innerHTML;
+    localStorage.setItem("formHTML", currentBodyHTML);
+
+    // Ивент, на который реагирует resume.js
     const e = new CustomEvent('resumeDisplayed');
     window.dispatchEvent(e);
 

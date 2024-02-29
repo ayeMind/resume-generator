@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="styles/resume.css" />
 </head>
 <body>
-  <h1 class="form-h">Создание резюме</h1>
+
+  <div class="form">
+    <h1 class="form-h">Создание резюме</h1>
   <form class="create-form" test-id="resume-builder">
     
     <label>
@@ -23,7 +25,12 @@
 
     <label>
       <span>Дата рождения</span>
-      <input type="date" name="birth" test-id="personal-info" />
+      <input type="text" name="birth" test-id="personal-info" />
+    </label>
+
+    <label>
+      <span>Город</span>
+      <input type="text" name="city" test-id="personal-info" />
     </label>
 
     <label>
@@ -73,7 +80,7 @@
     <h2 class="form-h">Основная информация</h2>
     <label>
       <span>О себе</span>
-      <textarea class="description" name="personal-description" test-id="personal-description"></textarea>
+      <textarea class="description-area" name="personal-description" test-id="personal-description"></textarea>
     </label>
 
     <h3 class="sub-h">Опыт работы</h3>
@@ -92,17 +99,17 @@
   
         <label>
           <span>Начало</span>
-          <input type="date" name="job-date-start" test-id="job-date-start" />
+          <input type="text" name="job-date-start" test-id="job-date-start" />
         </label>
   
         <label>
           <span>Конец</span>
-          <input type="date" name="job-date-end" test-id="job-date-end" />
+          <input type="text" name="job-date-end" test-id="job-date-end" />
         </label>
   
         <label>
           <span>Описание</span>
-          <textarea class="description" name="job-description" test-id="job-description"></textarea>
+          <textarea class="description-area" name="job-description" test-id="job-description"></textarea>
         </label>
       </div>
       
@@ -129,17 +136,17 @@
   
         <label>
           <span>Начало</span>
-          <input type="date" name="education-date-start" test-id="education-date-start" />
+          <input type="text" name="education-date-start" test-id="education-date-start" />
         </label>
   
         <label>
           <span>Конец</span>
-          <input type="date" name="education-date-end" test-id="education-date-end" />
+          <input type="text" name="education-date-end" test-id="education-date-end" />
         </label>
   
         <label>
           <span>Описание</span>
-          <textarea class="description" name="education-description" test-id="education-description"></textarea>
+          <textarea class="description-area" name="education-description" test-id="education-description"></textarea>
         </label>
       </div>
     </div> 
@@ -165,12 +172,12 @@
   
         <label>
           <span>Начало</span>
-          <input type="date" name="course-date-start" test-id="course-date-start" />
+          <input type="text" name="course-date-start" test-id="course-date-start" />
         </label>
   
         <label>
           <span>Конец</span>
-          <input type="date" name="course-date-end" test-id="course-date-end" />
+          <input type="text" name="course-date-end" test-id="course-date-end" />
         </label>
       </div>
     </div>
@@ -182,6 +189,10 @@
     
     <button type="submit" class="create">Создать резюме</button>
   </form>
+
+  </div>
+  
+  <div class="resume display-none"></div>
 
   <script src="scripts/resume.js" defer></script>
   <script src="scripts/form.js" defer></script>
