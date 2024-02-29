@@ -194,16 +194,16 @@ document.addEventListener("DOMContentLoaded", function () {
           <input type="text" test-id="job-place" name="job-place">
         </label>
         <label>
-          <span>Должность</span>
-          <input type="text" test-id="job-title" name="job-title">
-        </label>
-        <label>
           <span>Начало</span>
           <input type="text" test-id="job-date-start" name="job-date-start">
         </label>
         <label>
           <span>Конец</span>
           <input type="text" test-id="job-date-end" name="job-date-end">
+        </label>
+        <label>
+          <span>Должность</span>
+          <input type="text" test-id="job-title" name="job-title">
         </label>
         <label>
           <span>Описание</span>
@@ -235,16 +235,16 @@ document.addEventListener("DOMContentLoaded", function () {
           <input type="text" test-id="education-title" name="education-title">
         </label>
         <label>
-          <span>Место обучения</span>
-          <input type="text" test-id="education-place" name="education-place">
-        </label>
-        <label>
           <span>Начало</span>
           <input type="text" test-id="education-date-start" name="education-date-start">
         </label>
         <label>
           <span>Конец</span>
           <input type="text" test-id="education-date-end" name="education-date-end">
+        </label>
+        <label>
+          <span>Место обучения</span>
+          <input type="text" test-id="education-place" name="education-place">
         </label>
         <label>
           <span>Описание</span>
@@ -276,10 +276,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <input type="text" test-id="course-title" name="course-title">
         </label>
         <label>
-          <span>Организация</span>
-          <input type="text" test-id="course-place" name="course-place">
-        </label>
-        <label>
           <span>Начало</span>
           <input type="text" test-id="course-date-start" name="course-date-start">
         </label>
@@ -287,6 +283,10 @@ document.addEventListener("DOMContentLoaded", function () {
           <span>Конец</span>
           <input type="text" test-id="course-date-end" name="course-date-end">
         </label>
+        <label>
+        <span>Организация</span>
+        <input type="text" test-id="course-place" name="course-place">
+      </label>
       </div>
     `;
     courseContainer.insertAdjacentHTML("beforeend", newCourse);

@@ -12,11 +12,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .resume {
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +49,11 @@ h4 {
 p {
   font-size: 12.5px;
   font-weight: normal;
-  line-height: 1.1
+  line-height: 1.1;
+}
+
+p.description-p {
+  line-height: 1.25;
 }
 
 p.long {
@@ -79,7 +81,10 @@ p.long {
   color: #FFFFFF;
   height: auto;
   min-height: 100%;
-  padding: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+  padding-down: 0px;
 }
 
 
@@ -87,7 +92,7 @@ p.long {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 31px;
+  /* margin-bottom: */
 }
 
 .image {
@@ -101,20 +106,24 @@ p.long {
   padding-bottom: 12px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  /* gap: 15px; */
 }
 
 
 .personal-info {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  gap: 11px;
 }
 
 .personal-container {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 11px;
+  padding-top: 4px;
+  margin-top: 3px;
 
 }
 
@@ -122,10 +131,12 @@ p.long {
   display: flex;
   flex-direction: column;
   gap: 2.6px;
+  margin-top: 3px;
 }
 
 .lang-container {
   margin-top: 13px;
+  padding-bottom: 18px;
 }
 
 .lang-info {
@@ -145,7 +156,7 @@ p.long {
   border: none;
 	border-top: 1px solid #ffffff;
   margin-top: 4px;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
 }
 
 
@@ -161,11 +172,12 @@ p.long {
   color: #000000;
   height: auto;
   min-height: 100%;
-  padding-bottom: 16px;
+  /* padding-bottom: 16px; */
 }
 
-.title {
-  margin-top: 27px;
+.description-container {
+  padding-top: 28px;
+  padding-bottom: 10px;
 }
 
 .main-hr {
@@ -176,21 +188,26 @@ p.long {
 }
 
 .main-info {
-  margin-top: 29px;
+  padding-top: 17px;
+
 }
 
+.main-info-list > div:last-of-type .main-info-description {
+  padding-bottom: 9px;
+}
 .main-info-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
 .main-info-list {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 27px;
   margin-right: 11px;
+  padding-bottom: 12px;
 }
+
 
 .no-description {
   gap: 15px;
@@ -200,7 +217,7 @@ p.long {
   display: flex;
   flex-direction: column;
   item-align: center;
-  gap: 15px;
+  gap: 16px;
 }
 
 .main-info-column {
@@ -220,7 +237,7 @@ p.long {
   border: none;
   border-top: 1px solid #D3D3D3;
   margin-top: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .btn-return {

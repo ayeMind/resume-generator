@@ -1,6 +1,6 @@
 function createPersonalInfoComponent(personalInfoItems) {
   return `
-        <div class="personal-info">
+        <div class="personal-info" test-id="resume-main-section">
             <h2>Личные данные</h2>
             <hr class="side-hr">
             <div class="personal-container">
@@ -29,7 +29,7 @@ function createInterestsComponent(interests) {
   }
 
   return `
-        <div class="personal-info">
+        <div class="personal-info" test-id="resume-main-section">
             <h2>Интересы</h2>
             <hr class="side-hr">
             ${interests
@@ -51,7 +51,7 @@ function createLanguagesComponent(languages) {
   }
 
   return `
-        <div class="personal-info lang-container">
+        <div class="personal-info lang-container" test-id="resume-main-section">
             <h2>Языки</h2>
             <hr class="side-hr">
             ${languages
@@ -74,7 +74,7 @@ function createMainInfoComponent(mainInfo, titleText) {
   }
 
   return `
-        <div class="main-info">
+        <div class="main-info" test-id="resume-main-section">
             <h2>${titleText}</h2>
             <hr class="main-info-hr">
             <div class="main-info-list ${titleText.includes("Курсы") ? "no-description" : ""}">
@@ -94,7 +94,7 @@ function createMainInfoComponent(mainInfo, titleText) {
                             }
                             
                         </div>
-                        ${item.description ? `<div class="main-info-description"><p>${item.description}</p></div>` : ""}
+                        ${item.description ? `<div class="main-info-description"><p class="description-p">${item.description}</p></div>` : ""}
                     </div>
                 `,
                   )
@@ -139,8 +139,10 @@ function createMainContainer(
 ) {
   return `
         <div class="main-container" test-id="resume-main-article">
+          <div class="description-container" test-id="resume-main-section">
             ${createTitleComponent(titleText, fio)}
             ${createDescriptionComponent(descriptionText)}
+          </div>
             <div class="main-info-container">
                 ${createMainInfoComponent(job, "Опыт работы")}
                 ${createMainInfoComponent(education, "Образование и квалификация")}
