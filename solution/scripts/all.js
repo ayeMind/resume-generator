@@ -18,7 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return (`
                     <div class="with-actions">
                         <p class="resume-text" testid="resume-item">${getTitle(resume)}</p>
-                        <button title="Действия" class="menu-btn" test-id="resume-actions">☰</button>
+                        <div class="resume-actions">
+                            <button title="Действия" class="menu-btn" test-id="resume-actions">☰</button>
+                            <div class="menu hidden">
+                                <button></button>
+                                <button></button>
+                                <button></button>
+                            </div>
+                        </div>
                         <input type="checkbox" class="select-checkbox" test-id="resume-checkbox">
                     </div>
                 `);
@@ -29,6 +36,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     showResumeList();
+
+    
+    const menuBtns = document.querySelectorAll('.menu-btn');
+    menuBtns.forEach((menuBtn) => {
+        menuBtn.addEventListener('click', (e) => {
+            const menu = e.target.nextElementSibling;
+            menu.classList.toggle('hidden');
+        });
+    });
     
     let checkboxes = document.querySelectorAll('.select-checkbox');
     

@@ -1,15 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-
   // Ивент, на который реагирует resume.js (появление резюме на странице)
-  const resumeDisplayedEvent = new CustomEvent('resumeDisplayed');
+  const resumeDisplayedEvent = new CustomEvent("resumeDisplayed");
 
   if (localStorage.getItem("preview") === "true") {
     localStorage.setItem("preview", "false");
     window.dispatchEvent(resumeDisplayedEvent);
   }
-    
 
-  const createBtn = document.querySelector('.create');
+  const createBtn = document.querySelector(".create");
   const fioInput = document.querySelector('input[name="fio"]');
   const form = document.querySelector("form");
 
@@ -18,13 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
       createBtn.disabled = false;
     } else {
       createBtn.disabled = true;
-      }
     }
+  };
 
-  checkFio()
-    
+  checkFio();
+
   fioInput.addEventListener("input", function () {
-    checkFio()
+    checkFio();
   });
 
   form.addEventListener("submit", function (event) {
@@ -34,89 +32,145 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = new FormData(form);
 
     const excludedFields = [
-      "language-name", "language-level", "interest",
-      "job-place", "job-title", "job-date-start", "job-date-end", "job-description",
-      "education-title", "education-place", "education-date-start", "education-date-end", "education-description",
-      "course-title", "course-place", "course-date-start", "course-date-end"
+      "language-name",
+      "language-level",
+      "interest",
+      "job-place",
+      "job-title",
+      "job-date-start",
+      "job-date-end",
+      "job-description",
+      "education-title",
+      "education-place",
+      "education-date-start",
+      "education-date-end",
+      "education-description",
+      "course-title",
+      "course-place",
+      "course-date-start",
+      "course-date-end",
     ];
 
-    excludedFields.forEach(field => {
+    excludedFields.forEach((field) => {
       formData.delete(field);
     });
 
-
     // Сбор данных об интересах
-    const interestsData = []
+    const interestsData = [];
 
     const interestInputs = document.querySelectorAll('input[name="interest"]');
-    interestInputs.forEach(input => {
+    interestInputs.forEach((input) => {
       interestsData.push(input.value);
     });
 
     // Сбор данных о языках
     const languagesData = [];
     const languageContainers = document.querySelectorAll(".language");
-    languageContainers.forEach(container => {
+    languageContainers.forEach((container) => {
       const languageData = {
         name: container.querySelector('input[name="language-name"]').value,
-        level: container.querySelector('input[name="language-level"]').value
+        level: container.querySelector('input[name="language-level"]').value,
       };
       languagesData.push(languageData);
     });
 
     const changeDateType = (date) => {
-
-      if (!date) return ''
+      if (!date) return "";
 
       const dateObj = new Date(date);
-      const month = dateObj.toLocaleString('ru-RU', { month: 'long' });
+      const month = dateObj.toLocaleString("ru-RU", { month: "long" });
       const year = dateObj.getFullYear();
       return `${month} ${year} г.`;
-    }
-
+    };
 
     // Сбор данных о работе
     const jobsData = [];
-    const jobContainers = document.querySelectorAll(".work");
-    jobContainers.forEach(container => {
+    let jobContainers = document.querySelectorAll(".work");
+
+    jobContainers = Array.from(jobContainers).sort((a, b) => {
+      const dateA = a.querySelector('input[name="job-date-start"]').value;
+      const dateB = b.querySelector('input[name="job-date-start"]').value;
+
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+
+      return new Date(dateB) - new Date(dateA);
+    });
+    
+    jobContainers.forEach((container) => {
       const jobData = {
         title: container.querySelector('input[name="job-title"]').value,
         place: container.querySelector('input[name="job-place"]').value,
-        startDate: changeDateType(container.querySelector('input[name="job-date-start"]').value),
-        endDate: changeDateType(container.querySelector('input[name="job-date-end"]').value),
-        description: container.querySelector('textarea[name="job-description"]').value,
+        startDate: changeDateType(
+          container.querySelector('input[name="job-date-start"]').value,
+        ),
+        endDate: changeDateType(
+          container.querySelector('input[name="job-date-end"]').value,
+        ),
+        description: container.querySelector('textarea[name="job-description"]')
+          .value,
       };
       jobsData.push(jobData);
     });
 
     // Сбор данных об образовании
     const educationsData = [];
-    const educationContainers = document.querySelectorAll(".education");
+    let educationContainers = document.querySelectorAll(".education");
 
-    educationContainers.forEach(container => {
+    educationContainers = Array.from(educationContainers).sort((a, b) => {
+      const dateA = a.querySelector('input[name="education-date-start"]').value;
+      const dateB = b.querySelector('input[name="education-date-start"]').value;
+
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+
+      return new Date(dateB) - new Date(dateA);
+    });
+
+    educationContainers.forEach((container) => {
       const educationData = {
         title: container.querySelector('input[name="education-title"]').value,
-        startDate: changeDateType(container.querySelector('input[name="education-date-start"]').value),
-        endDate: changeDateType(container.querySelector('input[name="education-date-end"]').value),
+        startDate: changeDateType(
+          container.querySelector('input[name="education-date-start"]').value,
+        ),
+        endDate: changeDateType(
+          container.querySelector('input[name="education-date-end"]').value,
+        ),
         place: container.querySelector('input[name="education-place"]').value,
-        description: container.querySelector('textarea[name="education-description"]').value
+        description: container.querySelector(
+          'textarea[name="education-description"]',
+        ).value,
       };
       educationsData.push(educationData);
     });
 
     // Сбор данных о курсах
     const coursesData = [];
-    const courseContainers = document.querySelectorAll(".course");
-    courseContainers.forEach(container => {
+    let courseContainers = document.querySelectorAll(".course");
+
+    courseContainers = Array.from(courseContainers).sort((a, b) => {
+      const dateA = a.querySelector('input[name="course-date-start"]').value;
+      const dateB = b.querySelector('input[name="course-date-start"]').value;
+
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+
+      return new Date(dateB) - new Date(dateA);
+    });
+
+    courseContainers.forEach((container) => {
       const courseData = {
         title: container.querySelector('input[name="course-title"]').value,
         place: container.querySelector('input[name="course-place"]').value,
-        startDate: changeDateType(container.querySelector('input[name="course-date-start"]').value),
-        endDate: changeDateType(container.querySelector('input[name="course-date-end"]').value),
+        startDate: changeDateType(
+          container.querySelector('input[name="course-date-start"]').value,
+        ),
+        endDate: changeDateType(
+          container.querySelector('input[name="course-date-end"]').value,
+        ),
       };
       coursesData.push(courseData);
     });
-
 
     // ВСЁ В ЛОКАЛСТОРАДЖ БОГУ LOCALSTORAGE
     const data = {
@@ -125,18 +179,18 @@ document.addEventListener("DOMContentLoaded", function () {
       languages: languagesData,
       jobs: jobsData,
       educations: educationsData,
-      courses: coursesData
+      courses: coursesData,
     };
 
     localStorage.setItem("resumeData", JSON.stringify(data));
 
     window.dispatchEvent(resumeDisplayedEvent);
-
-    
   });
 
   // Добавление интереса
-  const addInterestBtn = document.querySelector('button[test-id="add-interest"]');
+  const addInterestBtn = document.querySelector(
+    'button[test-id="add-interest"]',
+  );
   const interestsContainer = document.querySelector(".interest-container");
 
   addInterestBtn.addEventListener("click", function () {
@@ -150,7 +204,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Удаление интереса
-  const removeInterestBtn = document.querySelector('button[test-id="remove-interest"]');
+  const removeInterestBtn = document.querySelector(
+    'button[test-id="remove-interest"]',
+  );
   removeInterestBtn.addEventListener("click", function () {
     const inputs = interestsContainer.getElementsByTagName("label");
     if (inputs.length > 0) {
@@ -159,7 +215,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Добавление языка
-  const addLanguageBtn = document.querySelector('button[test-id="add-language"]');
+  const addLanguageBtn = document.querySelector(
+    'button[test-id="add-language"]',
+  );
   const languagesContainer = document.querySelector(".language-container");
 
   addLanguageBtn.addEventListener("click", function () {
@@ -179,7 +237,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Удаление языка
-  const removeLanguageBtn = document.querySelector('button[test-id="remove-language"]');
+  const removeLanguageBtn = document.querySelector(
+    'button[test-id="remove-language"]',
+  );
   removeLanguageBtn.addEventListener("click", function () {
     const languages = languagesContainer.getElementsByClassName("language");
     if (languages.length > 0) {
@@ -194,10 +254,10 @@ document.addEventListener("DOMContentLoaded", function () {
   addJobBtn.addEventListener("click", function () {
     const newJob = `
       <div class="work">
-        <label>
-          <span>Место работы</span>
-          <input type="text" test-id="job-place" name="job-place">
-        </label>
+      <label>
+        <span>Должность</span>
+        <input type="text" test-id="job-title" name="job-title">
+      </label>
         <label>
           <span>Начало</span>
           <input type="text" test-id="job-date-start" name="job-date-start">
@@ -206,10 +266,11 @@ document.addEventListener("DOMContentLoaded", function () {
           <span>Конец</span>
           <input type="text" test-id="job-date-end" name="job-date-end">
         </label>
+        
         <label>
-          <span>Должность</span>
-          <input type="text" test-id="job-title" name="job-title">
-        </label>
+        <span>Место работы</span>
+        <input type="text" test-id="job-place" name="job-place">
+      </label>
         <label>
           <span>Описание</span>
           <textarea class="description-area" test-id="job-description" name="job-description"></textarea>
@@ -229,7 +290,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Добавление образования
-  const addEducationBtn = document.querySelector('button[test-id="add-education"]');
+  const addEducationBtn = document.querySelector(
+    'button[test-id="add-education"]',
+  );
   const educationContainer = document.querySelector(".education-container");
 
   addEducationBtn.addEventListener("click", function () {
@@ -261,7 +324,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Удаление образования
-  const removeEducationBtn = document.querySelector('button[test-id="remove-education"]');
+  const removeEducationBtn = document.querySelector(
+    'button[test-id="remove-education"]',
+  );
   removeEducationBtn.addEventListener("click", function () {
     const educations = educationContainer.getElementsByClassName("education");
     if (educations.length > 0) {
@@ -298,7 +363,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Удаление курсов
-  const removeCourseBtn = document.querySelector('button[test-id="remove-course"]');
+  const removeCourseBtn = document.querySelector(
+    'button[test-id="remove-course"]',
+  );
   removeCourseBtn.addEventListener("click", function () {
     const courses = courseContainer.getElementsByClassName("course");
     if (courses.length > 0) {

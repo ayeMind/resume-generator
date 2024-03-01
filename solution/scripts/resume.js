@@ -107,7 +107,6 @@ function createMainInfoComponent(mainInfo, titleText) {
 }
 
 function createTitleComponent(fio) {
-  
   return `
         <div class="title">
             <h1>${fio}</h1>
@@ -128,13 +127,7 @@ function createDescriptionComponent(descriptionText) {
     `;
 }
 
-function createMainContainer(
-  descriptionText,
-  job,
-  education,
-  courses,
-  fio,
-) {
+function createMainContainer(descriptionText, job, education, courses, fio) {
   return `
         <div class="main-container" test-id="resume-main-article">
           <div class="description-container" test-id="resume-main-section">
@@ -332,9 +325,8 @@ window.addEventListener("resumeDisplayed", function () {
     const resumeData = JSON.parse(localStorage.getItem("resumeData"));
     let resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
 
-    resumeList = [resumeData, ...resumeList]
+    resumeList = [resumeData, ...resumeList];
     localStorage.setItem("resumeList", JSON.stringify(resumeList));
     localStorage.removeItem("resumeData");
-
   });
 });
