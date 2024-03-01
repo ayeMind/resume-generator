@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  // Ивент, на который реагирует resume.js (появление резюме на странице)
+  const resumeDisplayedEvent = new CustomEvent('resumeDisplayed');
+
+  if (localStorage.getItem("preview") === "true") {
+    localStorage.setItem("preview", "false");
+    window.dispatchEvent(resumeDisplayedEvent);
+  }
+    
+
   const createBtn = document.querySelector('.create');
   const fioInput = document.querySelector('input[name="fio"]');
   const form = document.querySelector("form");
@@ -120,9 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     localStorage.setItem("resumeData", JSON.stringify(data));
 
-    // Ивент, на который реагирует resume.js
-    const e = new CustomEvent('resumeDisplayed');
-    window.dispatchEvent(e);
+    window.dispatchEvent(resumeDisplayedEvent);
 
     
   });

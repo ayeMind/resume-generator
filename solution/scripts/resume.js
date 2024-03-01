@@ -191,7 +191,7 @@ function createResumePageComponent(
         </div>
         <div class="buttons">
           <button class="btn-return" test-id="back-button">Вернуться</button>
-          <button class="btn-save" test-id="save-button">Сохранить</button>
+          <a href="/all" class="btn-save" test-id="save-button">Сохранить</a>
         </div>
     `;
 }
@@ -330,9 +330,9 @@ window.addEventListener("resumeDisplayed", function () {
   console.log(saveButton);
   saveButton.addEventListener("click", function () {
     const resumeData = JSON.parse(localStorage.getItem("resumeData"));
-    const resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
+    let resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
 
-    resumeList.push(resumeData);
+    resumeList = [resumeData, ...resumeList]
     localStorage.setItem("resumeList", JSON.stringify(resumeList));
     localStorage.removeItem("resumeData");
 
