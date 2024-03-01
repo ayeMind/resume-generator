@@ -30,19 +30,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     showResumeList();
     
-    const checkboxes = document.querySelectorAll('.select-checkbox');
+    let checkboxes = document.querySelectorAll('.select-checkbox');
     
     const isSomeChecked = () => {
+        if (checkboxes.length === 0) return false;
         return Array.from(checkboxes).some((checkbox) => checkbox.checked);
+    }
+
+    const toggleDeleteBtn = () => {
+        if (isSomeChecked()) {
+            document.querySelector('.delete-btn').classList.remove('hidden');
+        } else {
+            document.querySelector('.delete-btn').classList.add('hidden');
+        }
     }
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', () => {
-            if (isSomeChecked()) {
-                document.querySelector('.delete-btn').classList.remove('hidden');
-            } else {
-                document.querySelector('.delete-btn').classList.add('hidden');
-            }
+            toggleDeleteBtn();
         });
     });
 
@@ -55,7 +60,14 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('resumeList', JSON.stringify(newResumeList));
         resumeList = newResumeList;
         showResumeList();
-        
+
+        checkboxes = document.querySelectorAll('.select-checkbox');
+        toggleDeleteBtn();
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                toggleDeleteBtn();
+            });
+        });              
     });
 
 });

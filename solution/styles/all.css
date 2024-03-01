@@ -28,7 +28,7 @@
 .with-actions {
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: 8px;
     align-items: center;
     justify-content: center;
 }
