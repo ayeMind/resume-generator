@@ -1,3 +1,81 @@
+window.addEventListener("resumeDisplayed", function () {
+  const resumeData = JSON.parse(localStorage.getItem("resumeData"));
+
+  const imageSrc = "images/photo.jpg";
+  const imageAlt = "Фото";
+
+  let date;
+  if (resumeData.mainInfo["birth"]) {
+    date = new Date(resumeData.mainInfo["birth"]).toLocaleDateString("ru-RU");
+  } else {
+    date = "";
+  }
+
+  const personalInfoItems = [
+    { title: "ФИО", content: resumeData.mainInfo["fio"] },
+    { title: "Дата рождения", content: date },
+    { title: "Город", content: resumeData.mainInfo["city"] },
+    { title: "Номер телефона", content: resumeData.mainInfo["phone"] },
+    { title: "Email", content: resumeData.mainInfo["email"] },
+  ];
+
+  const interests = resumeData.interest;
+  const languages = resumeData.language;
+  const descriptionText = resumeData["personal-description"];
+  const jobs = resumeData.job;
+  const educations = resumeData.education;
+  const courses = resumeData.course;
+
+  const resumeDiv = document.querySelector(".resume");
+  const formDiv = document.querySelector(".form");
+
+  resumeDiv.innerHTML = createResumePageComponent(
+    imageSrc,
+    imageAlt,
+    descriptionText,
+    personalInfoItems,
+    interests,
+    languages,
+    jobs,
+    educations,
+    courses,
+  );
+
+  const createbtn = document.querySelector(".create");
+
+  createbtn.disabled = true;
+  formDiv.classList.add("display-none");
+
+  resumeDiv.classList.remove("display-none");
+
+  //   console.log(localStorage.getItem("resumeData"));
+
+  const btnReturn = document.querySelector(".btn-return");
+
+  btnReturn.addEventListener("click", function () {
+    localStorage.removeItem("resumeData");
+
+    resumeDiv.innerHTML = "";
+    resumeDiv.classList.add("display-none");
+
+    createbtn.disabled = false;
+    formDiv.classList.remove("display-none");
+  });
+
+  const saveButton = document.querySelector(".btn-save");
+  console.log(saveButton);
+  saveButton.addEventListener("click", function () {
+    const resumeData = JSON.parse(localStorage.getItem("resumeData"));
+    let resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
+
+    resumeList = [resumeData, ...resumeList];
+    localStorage.setItem("resumeList", JSON.stringify(resumeList));
+    localStorage.removeItem("resumeData");
+  });
+});
+
+
+
 function createPersonalInfoComponent(personalInfoItems) {
   return `
         <div class="personal-info" test-id="resume-main-section">
@@ -188,145 +266,3 @@ function createResumePageComponent(
         </div>
     `;
 }
-
-// const personalInfoItems = [
-//     { title: 'ФИО', content: 'Данилов Дмитрий Евгеньевич' },
-//     { title: 'Дата рождения', content: '05.05.1986' },
-//     { title: 'Город', content: 'Ижевск' },
-//     { title: 'Номер телефона', content: '+7 (234) 228-18-15' },
-//     { title: 'Email', content: 'beautifulfly@yandex.ru' }
-// ];
-
-// const interests = ['Хороший лидер', 'Занимаюсь спортом', 'Строительные практики', 'Выпускал журналы'];
-
-// const languages = [
-//     { language: 'Английский', level: 'C1' },
-//     { language: 'Испанский', level: 'B2' },
-// ];
-
-// const job = [
-//     {
-//         title: 'C++ разработчик',
-//         where: 'ООО Рога и Копыта, Москва',
-//         date: 'сентябрь 2020 г. — наст. время',
-//         description: 'Писал компилятор под js, который позволял ускорить билд приложений.'
-//     },
-//     {
-//         title: 'Angular-разработчик',
-//         where: 'Тинькофф Центр Разработки, Ижевск',
-//         date: 'февраль 2020 г. — август 2020 г.',
-//         description: 'Придумывал аналитические решения и разрабатывал веб-сайты для улучшения опыта пользователей.'
-//     }
-// ];
-
-// const education = [
-//     {
-//         title: 'Магистратура',
-//         where: 'ЦУ, Москва',
-//         date: 'сентябрь 2020 г. — наст. время',
-//         description: 'Дизайн и разработка ПО'
-//     },
-//     {
-//         title: 'Бакалавриат',
-//         where: 'Уральский Федеральный Университет, Екатеринбург',
-//         date: 'февраль 2020 г. — август 2020 г.',
-//         description: 'Направление: МОАИС.'
-//     }
-// ];
-
-// const courses = [
-//     {
-//         title: 'Школа промышленной разработки',
-//         where: 'Известная компания',
-//         date: 'январь 2021 г. — май 2021 г.',
-//     },
-//     {
-//         title: 'Основы JavaScript, HTML, CSS',
-//         where: 'ЦУ',
-//         date: 'февраль 2020 г. — август 2020 г.',
-//     },
-//     {
-//         title: 'Разработка на C++',
-//         where: 'Образование для Всех',
-//         date: 'январь 2019 г. — январь 2020 г.',
-//     },
-// ];
-
-// const descriptionText = 'В целом достаточно сильный разработчик, я бы даже сказал умный, вообще умен не по годам. Подниму ваш проект, удалю все легаси, и все коммиты будут маленькими по 15 строк кода.';
-
-window.addEventListener("resumeDisplayed", function () {
-  const resumeData = JSON.parse(localStorage.getItem("resumeData"));
-
-  const imageSrc = "images/photo.jpg";
-  const imageAlt = "Фото";
-
-  const descriptionText = resumeData.mainInfo["personal-description"];
-
-  let date;
-  if (resumeData.mainInfo["birth"]) {
-    date = new Date(resumeData.mainInfo["birth"]).toLocaleDateString("ru-RU");
-  } else {
-    date = "";
-  }
-
-  const personalInfoItems = [
-    { title: "ФИО", content: resumeData.mainInfo["fio"] },
-    { title: "Дата рождения", content: date },
-    { title: "Город", content: resumeData.mainInfo["city"] },
-    { title: "Номер телефона", content: resumeData.mainInfo["phone"] },
-    { title: "Email", content: resumeData.mainInfo["email"] },
-  ];
-
-  const interests = resumeData.interests;
-  const languages = resumeData.languages;
-  const jobs = resumeData.jobs;
-  const educations = resumeData.educations;
-  const courses = resumeData.courses;
-
-  const resumeDiv = document.querySelector(".resume");
-  const formDiv = document.querySelector(".form");
-
-  resumeDiv.innerHTML = createResumePageComponent(
-    imageSrc,
-    imageAlt,
-    descriptionText,
-    personalInfoItems,
-    interests,
-    languages,
-    jobs,
-    educations,
-    courses,
-  );
-
-  const createbtn = document.querySelector(".create");
-
-  createbtn.disabled = true;
-  formDiv.classList.add("display-none");
-
-  resumeDiv.classList.remove("display-none");
-
-  //   console.log(localStorage.getItem("resumeData"));
-
-  const btnReturn = document.querySelector(".btn-return");
-
-  btnReturn.addEventListener("click", function () {
-    localStorage.removeItem("resumeData");
-
-    resumeDiv.innerHTML = "";
-    resumeDiv.classList.add("display-none");
-
-    createbtn.disabled = false;
-    formDiv.classList.remove("display-none");
-  });
-
-  const saveButton = document.querySelector(".btn-save");
-  console.log(saveButton);
-  saveButton.addEventListener("click", function () {
-    const resumeData = JSON.parse(localStorage.getItem("resumeData"));
-    let resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
-
-    resumeList = [resumeData, ...resumeList];
-    localStorage.setItem("resumeList", JSON.stringify(resumeList));
-    localStorage.removeItem("resumeData");
-  });
-});

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <title>Мои резюме</title>
   <link rel="stylesheet" href="styles/all.css" />
   <script src="scripts/all.js" defer></script>
 </head>
+
 <body>
   <div class="main-container">
     <h1>Мои резюме</h1>
@@ -13,5 +15,45 @@
     <a href="/" test-id="add-resume" title="Добавить">+</a>
     <button title="Удалить выбранные" test-id="delete-resumes" class="delete-btn hidden">Удалить выбранные</button>
   </div>
+  <div class="modal hidden">
+    <div class="modal-content">
+      <h2>Копировать резюме</h2>
+      <div class="checkbox-container">
+        <label>
+          <input type="checkbox" class="checkbox-copy" test-id="copy-modal__checkbox" />
+          Личные данные
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox-copy" test-id="copy-modal__checkbox" />
+          О себе
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox-copy" test-id="copy-modal__checkbox" />
+          Интересы
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox-copy" test-id="copy-modal__checkbox" />
+          Языки
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox-copy" test-id="copy-modal__checkbox" />
+          Опыт работы
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox-copy" test-id="copy-modal__checkbox" />
+          Образование
+        </label>
+        <label>
+          <input type="checkbox" class="checkbox-copy" test-id="copy-modal__checkbox" />
+          Курсы
+        </label>
+      </div>
+      <div class="btn-container">
+        <a href="/" class="copy" test-id="copy-modal__copy">Копировать</a>
+        <button class="cancel" test-id="copy-modal__cancel">Отмена</button>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
