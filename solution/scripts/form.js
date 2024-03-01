@@ -120,9 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     localStorage.setItem("resumeData", JSON.stringify(data));
 
-    const currentBodyHTML = document.body.innerHTML;
-    localStorage.setItem("formHTML", currentBodyHTML);
-
     // Ивент, на который реагирует resume.js
     const e = new CustomEvent('resumeDisplayed');
     window.dispatchEvent(e);

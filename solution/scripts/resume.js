@@ -87,8 +87,10 @@ function createMainInfoComponent(mainInfo, titleText) {
                                 <h3>${item.title}</h3>
                                 <h4>${item.place ? item.place : ""}</h4>
                             </div>
-                            ${!item.startDate ? "" : 
-                              `<div class="date">
+                            ${
+                              !item.startDate
+                                ? ""
+                                : `<div class="date">
                                 <p>${item.startDate} — ${item.endDate ? item.endDate : "наст. время"}</p>
                               </div>`
                             }
@@ -104,14 +106,11 @@ function createMainInfoComponent(mainInfo, titleText) {
     `;
 }
 
-function createTitleComponent(titleText, fio) {
-  if (titleText === "") {
-    titleText = fio;
-  }
-
+function createTitleComponent(fio) {
+  
   return `
         <div class="title">
-            <h1>${titleText}</h1>
+            <h1>${fio}</h1>
         </div>
     `;
 }
@@ -130,7 +129,6 @@ function createDescriptionComponent(descriptionText) {
 }
 
 function createMainContainer(
-  titleText,
   descriptionText,
   job,
   education,
@@ -140,7 +138,7 @@ function createMainContainer(
   return `
         <div class="main-container" test-id="resume-main-article">
           <div class="description-container" test-id="resume-main-section">
-            ${createTitleComponent(titleText, fio)}
+            ${createTitleComponent(fio)}
             ${createDescriptionComponent(descriptionText)}
           </div>
             <div class="main-info-container">
@@ -176,7 +174,6 @@ function createSidePanel(
 function createResumePageComponent(
   imageSrc,
   imageAlt,
-  titleText,
   descriptionText,
   personalInfoItems,
   interests,
@@ -190,9 +187,12 @@ function createResumePageComponent(
   return `
         <div class="container" test-id="resume-main-content">
             ${createSidePanel(imageSrc, imageAlt, personalInfoItems, interests, languages)}
-            ${createMainContainer(titleText, descriptionText, job, education, courses, fio)}
+            ${createMainContainer(descriptionText, job, education, courses, fio)}
         </div>
-        <button class="btn-return" test-id="back-button">Вернуться</button>
+        <div class="buttons">
+          <button class="btn-return" test-id="back-button">Вернуться</button>
+          <button class="btn-save" test-id="save-button">Сохранить</button>
+        </div>
     `;
 }
 
@@ -259,7 +259,6 @@ function createResumePageComponent(
 //     },
 // ];
 
-// const titleText = 'Данилов Дмитрий Евгеньевич';
 // const descriptionText = 'В целом достаточно сильный разработчик, я бы даже сказал умный, вообще умен не по годам. Подниму ваш проект, удалю все легаси, и все коммиты будут маленькими по 15 строк кода.';
 
 window.addEventListener("resumeDisplayed", function () {
@@ -268,7 +267,6 @@ window.addEventListener("resumeDisplayed", function () {
   const imageSrc = "images/photo.jpg";
   const imageAlt = "Фото";
 
-  const titleText = resumeData.mainInfo["resume-title-field"];
   const descriptionText = resumeData.mainInfo["personal-description"];
 
   let date;
@@ -280,7 +278,7 @@ window.addEventListener("resumeDisplayed", function () {
 
   const personalInfoItems = [
     { title: "ФИО", content: resumeData.mainInfo["fio"] },
-    { title: "Дата рождения", content: date},
+    { title: "Дата рождения", content: date },
     { title: "Город", content: resumeData.mainInfo["city"] },
     { title: "Номер телефона", content: resumeData.mainInfo["phone"] },
     { title: "Email", content: resumeData.mainInfo["email"] },
@@ -292,13 +290,12 @@ window.addEventListener("resumeDisplayed", function () {
   const educations = resumeData.educations;
   const courses = resumeData.courses;
 
-  const resumeDiv = document.querySelector(".resume")
-  const formDiv = document.querySelector(".form")
+  const resumeDiv = document.querySelector(".resume");
+  const formDiv = document.querySelector(".form");
 
   resumeDiv.innerHTML = createResumePageComponent(
     imageSrc,
     imageAlt,
-    titleText,
     descriptionText,
     personalInfoItems,
     interests,
@@ -311,25 +308,33 @@ window.addEventListener("resumeDisplayed", function () {
   const createbtn = document.querySelector(".create");
 
   createbtn.disabled = true;
-  formDiv.classList.add("display-none")
+  formDiv.classList.add("display-none");
 
-  resumeDiv.classList.remove("display-none")
+  resumeDiv.classList.remove("display-none");
 
-//   console.log(localStorage.getItem("resumeData"));
+  //   console.log(localStorage.getItem("resumeData"));
 
   const btnReturn = document.querySelector(".btn-return");
-  
-  btnReturn.addEventListener("click", function () {
 
+  btnReturn.addEventListener("click", function () {
     localStorage.removeItem("resumeData");
 
-    resumeDiv.innerHTML = '';
-    resumeDiv.classList.add("display-none")
-    
+    resumeDiv.innerHTML = "";
+    resumeDiv.classList.add("display-none");
+
     createbtn.disabled = false;
-    formDiv.classList.remove("display-none")
+    formDiv.classList.remove("display-none");
+  });
 
+  const saveButton = document.querySelector(".btn-save");
+  console.log(saveButton);
+  saveButton.addEventListener("click", function () {
+    const resumeData = JSON.parse(localStorage.getItem("resumeData"));
+    const resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
 
+    resumeList.push(resumeData);
+    localStorage.setItem("resumeList", JSON.stringify(resumeList));
+    localStorage.removeItem("resumeData");
 
   });
 });

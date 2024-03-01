@@ -240,6 +240,9 @@ p.long {
   margin-bottom: 16px;
 }
 
-.btn-return {
-  margin-top: 32px;
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-top: 32px;
 }
