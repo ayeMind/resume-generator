@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   const resumeListDiv = document.querySelector(".resume-list");
   const mainContainer = document.querySelector(".main-container");
+  let checkboxes = document.querySelectorAll(".select-checkbox");
+
 
   let resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
   const modal = document.querySelector(".modal");
@@ -83,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    let checkboxes = document.querySelectorAll(".select-checkbox");
+    checkboxes = document.querySelectorAll(".select-checkbox");
 
     const isSomeChecked = () => {
       if (checkboxes.length === 0) return false;
