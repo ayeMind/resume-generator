@@ -163,12 +163,22 @@ function createMainInfoComponent(mainInfo, titleText) {
     return "";
   }
 
+  const sortedMainInfo = mainInfo.sort((a, b) => {
+    const dateA = a["startDate"]
+    const dateB = b["startDate"]
+
+    if (!dateA) return 1;
+    if (!dateB) return -1;
+
+    return new Date(dateB) - new Date(dateA);
+  });
+
   return `
         <div class="main-info" test-id="resume-main-section">
             <h2>${titleText}</h2>
             <hr class="main-info-hr">
             <div class="main-info-list ${titleText.includes("Курсы") ? "no-description" : ""}">
-                ${mainInfo
+                ${sortedMainInfo
                   .map(
                     (item) => `
                     <div class="main-info-item">

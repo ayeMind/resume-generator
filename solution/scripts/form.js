@@ -324,15 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const jobsData = [];
     let jobContainers = document.querySelectorAll(".job");
 
-    jobContainers = Array.from(jobContainers).sort((a, b) => {
-      const dateA = a.querySelector('input[name="startDate"]').value;
-      const dateB = b.querySelector('input[name="startDate"]').value;
-
-      if (!dateA) return 1;
-      if (!dateB) return -1;
-
-      return new Date(dateB) - new Date(dateA);
-    });
+    jobContainers = Array.from(jobContainers);
     
     jobContainers.forEach((container) => {
       const jobData = {
@@ -351,15 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const educationsData = [];
     let educationContainers = document.querySelectorAll(".education");
 
-    educationContainers = Array.from(educationContainers).sort((a, b) => {
-      const dateA = a.querySelector('input[name="startDate"]').value;
-      const dateB = b.querySelector('input[name="startDate"]').value;
-
-      if (!dateA) return 1;
-      if (!dateB) return -1;
-
-      return new Date(dateB) - new Date(dateA);
-    });
+    educationContainers = Array.from(educationContainers)
 
     educationContainers.forEach((container) => {
       const educationData = {
@@ -379,15 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const coursesData = [];
     let courseContainers = document.querySelectorAll(".course");
 
-    courseContainers = Array.from(courseContainers).sort((a, b) => {
-      const dateA = a.querySelector('input[name="startDate"]').value;
-      const dateB = b.querySelector('input[name="startDate"]').value;
-
-      if (!dateA) return 1;
-      if (!dateB) return -1;
-
-      return new Date(dateB) - new Date(dateA);
-    });
+    courseContainers = Array.from(courseContainers)
 
     courseContainers.forEach((container) => {
       const courseData = {
