@@ -24,10 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(copiedResume);
 
     const resultResume = {};
-    const checkboxes = document.querySelectorAll(".checkbox-copy");
+    const copyCheckboxes = document.querySelectorAll(".checkbox-copy");
     
     const checkboxFields = ["mainInfo", "personal-description", "interest", "language", "job", "education", "course"]
-    checkboxes.forEach((checkbox, index) => {
+    copyCheckboxes.forEach((checkbox, index) => {
         if (checkbox.checked) {
             resultResume[checkboxFields[index]] = copiedResume[checkboxFields[index]];
         }
@@ -73,6 +73,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+
+  const isSomeChecked = () => {
+    if (checkboxes.length === 0) return false;
+    return Array.from(checkboxes).some((checkbox) => checkbox.checked);
+  };
+
+
+  const toggleDeleteBtn = () => {
+    if (isSomeChecked()) {
+      document.querySelector(".delete-btn").classList.remove("hidden");
+    } else {
+      document.querySelector(".delete-btn").classList.add("hidden");
+    }
+  };
+
   const onChangeResumeList = (newResumeList) => {
     resumeList = newResumeList;
     localStorage.setItem("resumeList", JSON.stringify(resumeList));
@@ -87,24 +102,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     checkboxes = document.querySelectorAll(".select-checkbox");
 
-    const isSomeChecked = () => {
-      if (checkboxes.length === 0) return false;
-      return Array.from(checkboxes).some((checkbox) => checkbox.checked);
-    };
-
-    const toggleDeleteBtn = () => {
-      if (isSomeChecked()) {
-        document.querySelector(".delete-btn").classList.remove("hidden");
-      } else {
-        document.querySelector(".delete-btn").classList.add("hidden");
-      }
-    };
-
     checkboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", () => {
         toggleDeleteBtn();
       });
     });
+
+    toggleDeleteBtn();
 
     const openBtns = document.querySelectorAll(".open-btn");
     openBtns.forEach((openBtn, index) => {
@@ -146,19 +150,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const deleteBtn = document.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", () => {
+    checkboxes = document.querySelectorAll(".select-checkbox");
     const newResumeList = resumeList.filter((resume, index) => {
       return !checkboxes[index].checked;
     });
 
     localStorage.setItem("resumeList", JSON.stringify(newResumeList));
     onChangeResumeList(newResumeList);
-
-    checkboxes = document.querySelectorAll(".select-checkbox");
-    toggleDeleteBtn();
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", () => {
-        toggleDeleteBtn();
-      });
-    });
+    
   });
 });
