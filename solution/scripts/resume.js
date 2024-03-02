@@ -128,11 +128,13 @@ function createLanguagesComponent(languages) {
     return "";
   }
 
+  const filledLanguages = languages.filter((lang) => lang.name !== "" && lang.level !== "");
+
   return `
         <div class="personal-info lang-container" test-id="resume-main-section">
             <h2>Языки</h2>
             <hr class="side-hr">
-            ${languages
+            ${filledLanguages
               .map(
                 (lang) => `
                 <div class="personal-info-item lang">
@@ -251,6 +253,7 @@ function createSidePanel(
         </div>
     `;
 }
+
 
 function createResumePageComponent(
   imageSrc,
