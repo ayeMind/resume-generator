@@ -234,9 +234,9 @@ document.addEventListener("DOMContentLoaded", function () {
           copiedResume[field].forEach((item, index) => {
 
             if (field === "interest") {
-              for (let key in item) {
-                inputs[index].value = item[key];
-              }
+              inputs.forEach((input, index) => {
+                input.value = copiedResume[field][index];
+              });
             }
 
             else {
@@ -317,15 +317,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const personalDescription = document.querySelector('.about-me').value;
     
 
-    const changeDateType = (date) => {
-      if (!date) return "";
-
-      const dateObj = new Date(date);
-      const month = dateObj.toLocaleString("ru-RU", { month: "long" });
-      const year = dateObj.getFullYear();
-      return `${month} ${year} г.`;
-    };
-
     // Сбор данных о работе
     const jobsData = [];
     let jobContainers = document.querySelectorAll(".job");
@@ -344,12 +335,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const jobData = {
         title: container.querySelector('input[name="title"]').value,
         place: container.querySelector('input[name="place"]').value,
-        startDate: changeDateType(
-          container.querySelector('input[name="startDate"]').value,
-        ),
-        endDate: changeDateType(
-          container.querySelector('input[name="endDate"]').value,
-        ),
+        startDate: container.querySelector('input[name="startDate"]').value,
+        endDate: container.querySelector('input[name="endDate"]').value,
         description: container.querySelector('textarea[name="description"]')
           .value,
       };
@@ -374,12 +361,8 @@ document.addEventListener("DOMContentLoaded", function () {
     educationContainers.forEach((container) => {
       const educationData = {
         title: container.querySelector('input[name="title"]').value,
-        startDate: changeDateType(
-          container.querySelector('input[name="startDate"]').value,
-        ),
-        endDate: changeDateType(
-          container.querySelector('input[name="endDate"]').value,
-        ),
+        startDate: container.querySelector('input[name="startDate"]').value,
+        endDate: container.querySelector('input[name="endDate"]').value,
         place: container.querySelector('input[name="place"]').value,
         description: container.querySelector(
           'textarea[name="description"]',
@@ -407,12 +390,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const courseData = {
         title: container.querySelector('input[name="title"]').value,
         place: container.querySelector('input[name="place"]').value,
-        startDate: changeDateType(
-          container.querySelector('input[name="startDate"]').value,
-        ),
-        endDate: changeDateType(
-          container.querySelector('input[name="endDate"]').value,
-        ),
+        startDate: container.querySelector('input[name="startDate"]').value,
+        endDate: container.querySelector('input[name="endDate"]').value,
       };
       coursesData.push(courseData);
     });

@@ -146,6 +146,16 @@ function createLanguagesComponent(languages) {
     `;
 }
 
+
+const changeDateType = (date) => {
+  if (!date) return "";
+
+  const dateObj = new Date(date);
+  const month = dateObj.toLocaleString("ru-RU", { month: "long" });
+  const year = dateObj.getFullYear();
+  return `${month} ${year} г.`;
+};
+
 function createMainInfoComponent(mainInfo, titleText) {
   if (mainInfo.every((info) => info.title === "")) {
     return "";
@@ -169,7 +179,7 @@ function createMainInfoComponent(mainInfo, titleText) {
                               !item.startDate
                                 ? ""
                                 : `<div class="date">
-                                <p>${item.startDate} — ${item.endDate ? item.endDate : "наст. время"}</p>
+                                <p>${changeDateType(item.startDate)} — ${item.endDate ? changeDateType(item.endDate) : "наст. время"}</p>
                               </div>`
                             }
                             
