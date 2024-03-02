@@ -194,7 +194,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Если в локалсторадже есть скопированное резюме, то заполнить все поля формы, что там есть, в соответствии с ним
     if (localStorage.getItem("copiedResume")) {
       const copiedResume = JSON.parse(localStorage.getItem("copiedResume"));
-      console.log("copiedResume", copiedResume);
 
       localStorage.removeItem("copiedResume");
       
@@ -250,7 +249,6 @@ document.addEventListener("DOMContentLoaded", function () {
               keys.forEach((key) => {
                 const inputsWithKeyName = container.querySelectorAll(`[name="${key}"]`);
                 
-                console.log(inputsWithKeyName[index], copiedResume[field][index]);
                 inputsWithKeyName[index].value = copiedResume[field][index][key];
               })
             }

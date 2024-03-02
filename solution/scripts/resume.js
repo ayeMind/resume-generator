@@ -48,7 +48,6 @@ window.addEventListener("resumeDisplayed", function () {
 
   resumeDiv.classList.remove("display-none");
 
-  //   console.log(localStorage.getItem("resumeData"));
 
   const btnReturn = document.querySelector(".btn-return");
 
@@ -63,7 +62,6 @@ window.addEventListener("resumeDisplayed", function () {
   });
 
   const saveButton = document.querySelector(".btn-save");
-  console.log(saveButton);
   saveButton.addEventListener("click", function () {
     const resumeData = JSON.parse(localStorage.getItem("resumeData"));
     let resumeList = JSON.parse(localStorage.getItem("resumeList")) || [];
