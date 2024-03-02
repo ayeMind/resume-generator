@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const resumeDisplayedEvent = new CustomEvent("resumeDisplayed");
 
   if (localStorage.getItem("preview") === "true") {
-    localStorage.setItem("preview", "false");
+    localStorage.removeItem("preview");
     window.dispatchEvent(resumeDisplayedEvent);
   }
 
@@ -203,8 +203,11 @@ document.addEventListener("DOMContentLoaded", function () {
       
         if (field === "mainInfo") {
 
-          delete copiedResume.mainInfo["resume-title-field"];
-          
+          if (localStorage.getItem("copy")) {
+            localStorage.removeItem("copy");
+            delete copiedResume.mainInfo["resume-title-field"];
+          }
+
           const mainInfo = copiedResume[field];
           for (let key in mainInfo) {
             const input = form.querySelector(`[name="${key}"]`);

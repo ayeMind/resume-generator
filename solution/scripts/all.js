@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     
     localStorage.setItem("copiedResume", JSON.stringify(resultResume));
+    localStorage.setItem("copy", "true");
   });
 
 
@@ -157,6 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     localStorage.setItem("resumeList", JSON.stringify(newResumeList));
     onChangeResumeList(newResumeList);
-    
+
   });
 });
