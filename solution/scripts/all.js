@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .map((resume) => {
           return `
                     <div class="with-actions">
-                        <p class="resume-text" testid="resume-item">${getTitle(resume)}</p>
+                        <div class="resume-text" testid="resume-item">${getTitle(resume)}
                         <div class="resume-actions">
                             <button title="Действия" class="menu-btn" test-id="resume-actions">☰</button>
                             <div class="menu hidden">
@@ -59,6 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <button class="copy-btn" test-id="resume-actions__copy">Копировать</button>
                             </div>
                         </div>
+                        </div>
+                        
                         <input type="checkbox" class="select-checkbox" test-id="resume-checkbox">
                     </div>
                 `;

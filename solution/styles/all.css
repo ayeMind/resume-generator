@@ -36,13 +36,13 @@
     align-items: center;
 }
 
-.menu-btn, .select-checkbox, .delete-btn {
+.select-checkbox, .delete-btn {
     padding: 4px 6px;
 }
 
 
 .resume-text {
-    padding: 4px 6px;
+    padding: 4px 12px;
     background-color: #f2f2f2;
     border-radius: 6px;
     border: 1px solid #000000;
@@ -56,13 +56,23 @@ button, a {
     display: inline-block;
     padding: 8px 16px;
     margin: 8px;
-    border: 1px solid #000000;
     border-radius: 4px;
-    background-color: #f2f2f2;
     color: #000000;
+    background-color: #d9d9d9;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+button:hover, a:hover {
+    opacity: 0.8;
+}
+
+.menu-btn {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    font-size: 18px;
 }
 
 .modal {

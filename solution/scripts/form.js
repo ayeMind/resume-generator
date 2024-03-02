@@ -6,9 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const interestsContainer = document.querySelector(".interest-container");
 
   addInterestBtn.addEventListener("click", function () {
+
+    const interestsCount = interestsContainer.querySelectorAll("label").length;
+
     const newInterest = `
       <label>
-        <span>Ещё один интерес</span>
+        <span>${interestsCount + 1} интерес</span>
         <input type="text" test-id="interest" name="interest">
       </label>
     `;

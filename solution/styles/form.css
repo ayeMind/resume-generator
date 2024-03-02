@@ -110,3 +110,8 @@ button:hover {
     margin-top: 20px;
 }
 
+.language-container, .education-container, .job-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
