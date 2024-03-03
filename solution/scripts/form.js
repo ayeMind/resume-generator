@@ -202,8 +202,8 @@ document.addEventListener("DOMContentLoaded", function () {
       
         if (field === "mainInfo") {
 
-          if (localStorage.getItem("copy")) {
-            localStorage.removeItem("copy");
+           // Если это было получено не для открытия резюме, а именно для копирования
+           if (localStorage.getItem("copy")) {
             delete copiedResume.mainInfo["resume-title-field"];
           }
 
@@ -256,6 +256,8 @@ document.addEventListener("DOMContentLoaded", function () {
             
           });
         }
+
+        localStorage.removeItem("copy");
 
       })}
 

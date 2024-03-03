@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="resume-actions">
                             <button title="Действия" class="menu-btn" test-id="resume-actions">☰</button>
                             <div class="menu hidden">
-                                <button href="/" class="open-btn" test-id="resume-actions__open">Открыть</button>
+                                <a href="/" class="open-btn" test-id="resume-actions__open">Открыть</a>
                                 <button class="remove-btn" test-id="resume-actions__delete">Удалить</button>
                                 <button class="copy-btn" test-id="resume-actions__copy">Копировать</button>
                             </div>
@@ -117,8 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("resumeData", JSON.stringify(resumeList[index]));
         localStorage.setItem("copiedResume", JSON.stringify(resumeList[index]));
         localStorage.setItem("preview", "true");
-
-        window.location.pathname = "/";
       });
     });
 
